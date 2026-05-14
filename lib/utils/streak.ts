@@ -1,9 +1,12 @@
+function localDateString(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
 export function calculateStreak(completionDates: string[]): number {
   if (completionDates.length === 0) return 0;
 
-  const fmt = (d: Date) => d.toISOString().split('T')[0];
-  const today = fmt(new Date());
-  const yesterday = fmt(new Date(Date.now() - 86400000));
+  const today = localDateString(new Date());
+  const yesterday = localDateString(new Date(Date.now() - 86400000));
 
   const unique = [...new Set(completionDates)].sort().reverse();
 

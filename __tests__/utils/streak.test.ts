@@ -1,10 +1,13 @@
 import { calculateStreak } from '@/lib/utils/streak';
 
-const fmt = (d: Date) => d.toISOString().split('T')[0];
-const today = fmt(new Date());
-const yesterday = fmt(new Date(Date.now() - 86400000));
-const twoDaysAgo = fmt(new Date(Date.now() - 172800000));
-const threeDaysAgo = fmt(new Date(Date.now() - 259200000));
+function localDateString(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+const today = localDateString(new Date());
+const yesterday = localDateString(new Date(Date.now() - 86400000));
+const twoDaysAgo = localDateString(new Date(Date.now() - 172800000));
+const threeDaysAgo = localDateString(new Date(Date.now() - 259200000));
 
 describe('calculateStreak', () => {
   it('returns 0 for empty array', () => {
