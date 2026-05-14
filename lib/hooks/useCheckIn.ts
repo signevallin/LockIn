@@ -3,12 +3,8 @@ import { useState, useEffect } from 'react';
 import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase/config';
 import { useAuth } from './useAuth';
+import { todayKey } from '@/lib/utils/dateUtils';
 import type { CheckIn } from '@/lib/types';
-
-const todayKey = () => {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-};
 
 export function useCheckIn() {
   const { user } = useAuth();
@@ -18,7 +14,13 @@ export function useCheckIn() {
   useEffect(() => {
     if (!user) return;
     getDoc(doc(db, 'users', user.uid, 'check_ins', todayKey())).then(snap => {
-      if (snap.exists()) setTodayCheckIn(snap.data() as CheckIn);
+      if (snap.exists()) {
+        const raw = snap.data();
+        setTodayCheckIn({
+          ...raw,
+          createdAt: (raw.createdAt as Timestamp).toDate(),
+        } as CheckIn);
+      }
       setLoading(false);
     });
   }, [user]);

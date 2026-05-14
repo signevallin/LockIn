@@ -12,6 +12,7 @@ export function useFocusSessions() {
   const { user } = useAuth();
   const [sessions, setSessions] = useState<FocusSession[]>([]);
   const [todayMinutes, setTodayMinutes] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user) return;
@@ -24,9 +25,13 @@ export function useFocusSessions() {
       orderBy('completedAt', 'desc')
     );
     return onSnapshot(q, snap => {
-      const s = snap.docs.map(d => ({ id: d.id, ...d.data() } as FocusSession));
+      const s = snap.docs.map(d => {
+        const data = d.data();
+        return { id: d.id, ...data, completedAt: (data.completedAt as Timestamp).toDate() } as FocusSession;
+      });
       setSessions(s);
       setTodayMinutes(s.reduce((sum, sess) => sum + sess.durationMinutes, 0));
+      setLoading(false);
     });
   }, [user]);
 
@@ -39,5 +44,5 @@ export function useFocusSessions() {
     });
   }
 
-  return { sessions, todayMinutes, logSession };
+  return { sessions, todayMinutes, loading, logSession };
 }
