@@ -8,18 +8,23 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const { login, register } = useAuth();
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (submitting) return;
     setError('');
+    setSubmitting(true);
     try {
       if (mode === 'login') await login(email, password);
       else await register(email, password);
       router.push('/app');
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Något gick fel');
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -64,9 +69,10 @@ export default function LoginPage() {
           {error && <p className="text-red-600 text-sm">{error}</p>}
           <button
             type="submit"
-            className="w-full bg-earth text-cream py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity"
+            disabled={submitting}
+            className="w-full bg-earth text-cream py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity disabled:opacity-60"
           >
-            {mode === 'login' ? 'Logga in' : 'Skapa konto'}
+            {submitting ? 'Väntar...' : mode === 'login' ? 'Logga in' : 'Skapa konto'}
           </button>
         </form>
       </div>
