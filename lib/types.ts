@@ -36,7 +36,7 @@ export interface Milestone {
   completed: boolean;
 }
 
-export interface Promise {
+export interface UserPromise {
   id: string;
   title: string;
   category: string;
@@ -65,6 +65,6 @@ export interface CoachContext {
   streak: number;
   totalXp: number;
   goals: Pick<Goal, 'title' | 'progress' | 'deadline'>[];
-  promises: (Pick<Promise, 'title' | 'stakeAmount' | 'charityOrg'> & { daysLeft: number })[];
+  promises: (Pick<UserPromise, 'title' | 'stakeAmount' | 'charityOrg'> & { daysLeft: number })[];
   lastCheckIn: Pick<CheckIn, 'mood' | 'reflection'> | null;
 }
