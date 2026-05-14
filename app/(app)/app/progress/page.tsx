@@ -6,8 +6,22 @@ import { ActivityChart } from '@/components/progress/ActivityChart';
 const DAY_LABELS = ['Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör', 'Sön'];
 
 export default function ProgressPage() {
-  const { sessions, todayMinutes } = useFocusSessions();
+  const { sessions, todayMinutes, loading } = useFocusSessions();
   const [period, setPeriod] = useState<'vecka' | 'månad'>('vecka');
+
+  if (loading) {
+    return (
+      <div className="p-4 space-y-4">
+        <h1 className="text-xl font-bold text-earth pt-2">Min progress</h1>
+        <div className="grid grid-cols-3 gap-3">
+          {[0, 1, 2].map(i => (
+            <div key={i} className="bg-white rounded-2xl p-3 shadow-sm h-14 animate-pulse" />
+          ))}
+        </div>
+        <div className="bg-white rounded-2xl p-4 shadow-sm h-32 animate-pulse" />
+      </div>
+    );
+  }
 
   const todayIdx = (new Date().getDay() + 6) % 7; // Monday = 0
   const weekData = DAY_LABELS.map((label, i) => ({
