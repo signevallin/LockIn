@@ -47,7 +47,12 @@ export async function POST(req: Request) {
     return new Response('Invalid token', { status: 401 });
   }
 
-  const { messages, context }: { messages: CoachMessage[]; context: CoachContext } = await req.json();
+  let messages: CoachMessage[], context: CoachContext;
+  try {
+    ({ messages, context } = await req.json());
+  } catch {
+    return new Response('Bad Request', { status: 400 });
+  }
   const systemPrompt = buildSystemPrompt(context);
 
   const stream = client.messages.stream({
