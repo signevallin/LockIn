@@ -24,11 +24,16 @@ export function CheckInModal({ open, onClose, onSubmit }: Props) {
   const [saving, setSaving] = useState(false);
 
   async function handleSubmit() {
+    if (saving) return;
     setSaving(true);
-    await onSubmit(mood, reflection);
-    setSaving(false);
-    setReflection('');
-    onClose();
+    try {
+      await onSubmit(mood, reflection);
+      setMood(3);
+      setReflection('');
+      onClose();
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (

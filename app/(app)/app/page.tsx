@@ -16,11 +16,13 @@ import { Button } from '@/components/ui/Button';
 export default function HomePage() {
   const { user } = useAuth();
   const { tasks, completedToday, addTask, toggleTask } = useTasks();
-  const { todayCheckIn, checkIn } = useCheckIn();
+  const { todayCheckIn, loading: checkInLoading, checkIn } = useCheckIn();
   const [checkInOpen, setCheckInOpen] = useState(false);
   const [addTaskOpen, setAddTaskOpen] = useState(false);
   const [newTask, setNewTask] = useState({ title: '', category: '' });
+  const [addingTask, setAddingTask] = useState(false);
 
+  // TODO: pass real task_completion date history for accurate streak
   const streak = calculateStreak([]);
   const totalXp = calculateXp(completedToday.size);
   const name = user?.displayName || user?.email?.split('@')[0] || 'du';
@@ -33,18 +35,18 @@ export default function HomePage() {
           <h1 className="text-xl font-bold text-earth">Hej, {name} 👋</h1>
           <p className="text-sm text-earth-light">Låt&apos;s lock in idag.</p>
         </div>
-        {!todayCheckIn ? (
+        {!checkInLoading && !todayCheckIn ? (
           <button
             onClick={() => setCheckInOpen(true)}
             className="text-sm bg-bay text-earth px-3 py-1.5 rounded-full font-medium"
           >
             Checka in →
           </button>
-        ) : (
+        ) : todayCheckIn ? (
           <span className="text-sm text-earth-light">
             {['😔','😕','😐','🙂','😄'][todayCheckIn.mood - 1]} Incheckad
           </span>
-        )}
+        ) : null}
       </div>
 
       {/* Dagligt citat */}
@@ -92,13 +94,18 @@ export default function HomePage() {
           onChange={e => setNewTask(p => ({ ...p, category: e.target.value }))}
           className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm mb-4 focus:outline-none focus:border-earth"
         />
-        <Button size="lg" onClick={async () => {
-          if (!newTask.title) return;
-          await addTask({ title: newTask.title, category: newTask.category, goalId: null });
-          setNewTask({ title: '', category: '' });
-          setAddTaskOpen(false);
+        <Button size="lg" disabled={addingTask} onClick={async () => {
+          if (!newTask.title || addingTask) return;
+          setAddingTask(true);
+          try {
+            await addTask({ title: newTask.title, category: newTask.category, goalId: null });
+            setNewTask({ title: '', category: '' });
+            setAddTaskOpen(false);
+          } finally {
+            setAddingTask(false);
+          }
         }}>
-          Lägg till
+          {addingTask ? 'Lägger till...' : 'Lägg till'}
         </Button>
       </Modal>
     </div>
