@@ -14,7 +14,9 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(payload => {
-  const { title, body } = payload.notification;
+  const notification = payload.notification ?? {};
+  const title = notification.title ?? 'LockIn';
+  const body = notification.body ?? '';
   self.registration.showNotification(title, {
     body,
     icon: '/icons/icon-192.png',
