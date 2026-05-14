@@ -12,13 +12,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     if (!loading && !user) router.push('/login');
   }, [user, loading, router]);
 
-  if (loading || !user) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-cream flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-earth border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
+
+  if (!user) return null;
 
   return (
     <div className="max-w-md mx-auto min-h-screen bg-cream pb-20">
