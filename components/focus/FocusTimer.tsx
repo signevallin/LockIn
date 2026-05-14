@@ -44,7 +44,6 @@ export function FocusTimer({ todayMinutes, onSessionComplete }: Props) {
     intervalRef.current = setInterval(() => {
       setSecondsLeft(prev => {
         if (prev <= 1) {
-          clearInterval(intervalRef.current!);
           completedRef.current = true;
           return 0;
         }
