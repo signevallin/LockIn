@@ -5,8 +5,8 @@ import { usePathname } from 'next/navigation';
 const NAV = [
   { href: '/app', label: 'Hem', icon: '🏠' },
   { href: '/app/goals', label: 'Mål', icon: '🎯' },
-  { href: '/app/promises', label: 'Löften', icon: '🔒' },
   { href: '/app/focus', label: 'Fokus', icon: '⏱' },
+  { href: '/app/progress', label: 'Stats', icon: '📊' },
   { href: '/app/coach', label: 'Coach', icon: '🤖' },
 ];
 
