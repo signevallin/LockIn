@@ -22,13 +22,15 @@ export default function GoalsPage() {
       progress: 0,
       createdAt: Timestamp.now(),
     });
-    for (const title of subGoalTitles) {
-      await addDoc(collection(db, 'users', user.uid, 'goals', goalRef.id, 'sub_goals'), {
-        title,
-        completed: false,
-        completedAt: null,
-      });
-    }
+    await Promise.all(
+      subGoalTitles.map(title =>
+        addDoc(collection(db, 'users', user.uid, 'goals', goalRef.id, 'sub_goals'), {
+          title,
+          completed: false,
+          completedAt: null,
+        })
+      )
+    );
   }
 
   return (

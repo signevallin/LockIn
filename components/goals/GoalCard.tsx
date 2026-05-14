@@ -34,16 +34,20 @@ export function GoalCard({ goal, onProgressUpdate }: Props) {
   async function toggleSubGoal(subGoal: SubGoal) {
     if (!user) return;
     const nowCompleted = !subGoal.completed;
-    const updated = {
-      completed: nowCompleted,
-      completedAt: nowCompleted ? Timestamp.now() : null,
-    };
-    await updateDoc(doc(db, 'users', user.uid, 'goals', goal.id, 'sub_goals', subGoal.id), updated);
     const next = subGoals.map(s => s.id === subGoal.id
       ? { ...s, completed: nowCompleted, completedAt: nowCompleted ? new Date() : null }
       : s
     );
-    onProgressUpdate(goal.id, next);
+    setSubGoals(next);
+    try {
+      await updateDoc(doc(db, 'users', user.uid, 'goals', goal.id, 'sub_goals', subGoal.id), {
+        completed: nowCompleted,
+        completedAt: nowCompleted ? Timestamp.now() : null,
+      });
+      onProgressUpdate(goal.id, next);
+    } catch {
+      setSubGoals(subGoals);
+    }
   }
 
   const daysLeft = Math.ceil((goal.deadline.getTime() - Date.now()) / 86400000);
