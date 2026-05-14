@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { ProgressRing } from '@/components/ui/ProgressRing';
 import { Button } from '@/components/ui/Button';
 import type { FocusSession } from '@/lib/types';
@@ -22,37 +22,50 @@ export function FocusTimer({ todayMinutes, onSessionComplete }: Props) {
   const [running, setRunning] = useState(false);
   const [customMinutes, setCustomMinutes] = useState(30);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const totalSeconds = (selectedMode.key === 'custom' ? customMinutes : selectedMode.minutes) * 60;
+  const completedRef = useRef(false);
+
+  const totalSeconds = useMemo(
+    () => (selectedMode.key === 'custom' ? customMinutes : selectedMode.minutes) * 60,
+    [selectedMode, customMinutes]
+  );
   const percent = ((totalSeconds - secondsLeft) / totalSeconds) * 100;
 
   const handleComplete = useCallback(async () => {
     setRunning(false);
-    await onSessionComplete(selectedMode.key, selectedMode.key === 'custom' ? customMinutes : selectedMode.minutes);
+    await onSessionComplete(
+      selectedMode.key,
+      selectedMode.key === 'custom' ? customMinutes : selectedMode.minutes
+    );
     setSecondsLeft(totalSeconds);
   }, [selectedMode, customMinutes, onSessionComplete, totalSeconds]);
 
   useEffect(() => {
-    if (running) {
-      intervalRef.current = setInterval(() => {
-        setSecondsLeft(prev => {
-          if (prev <= 1) {
-            clearInterval(intervalRef.current!);
-            handleComplete();
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    } else {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    }
+    if (!running) return;
+    intervalRef.current = setInterval(() => {
+      setSecondsLeft(prev => {
+        if (prev <= 1) {
+          clearInterval(intervalRef.current!);
+          completedRef.current = true;
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-  }, [running, handleComplete]);
+  }, [running]);
+
+  useEffect(() => {
+    if (secondsLeft === 0 && completedRef.current) {
+      completedRef.current = false;
+      handleComplete();
+    }
+  }, [secondsLeft, handleComplete]);
 
   useEffect(() => {
     const mins = selectedMode.key === 'custom' ? customMinutes : selectedMode.minutes;
     setSecondsLeft(mins * 60);
     setRunning(false);
+    completedRef.current = false;
   }, [selectedMode, customMinutes]);
 
   useEffect(() => {
