@@ -12,6 +12,17 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@theme {
+  --color-earth: #513229;
+  --color-cream: #F4F1E2;
+  --color-sky: #D8EBF9;
+  --color-bay: #FCE6B7;
+  --color-sage: #D7D4B1;
+  --color-streak: #e07b39;
+  --color-earth-light: #7a5c54;
+  --color-cream-dark: #ede9da;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
