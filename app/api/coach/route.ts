@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import Anthropic from '@anthropic-ai/sdk';
 import { adminAuth } from '@/lib/firebase/admin';
 import type { CoachContext, CoachMessage } from '@/lib/types';
