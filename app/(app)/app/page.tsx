@@ -32,7 +32,7 @@ export default function HomePage() {
 
   const hour = new Date().getHours();
   const greeting = hour < 10 ? 'God morgon' : hour < 18 ? 'Hej' : 'God kväll';
-  const subtitle = hour < 10 ? 'Dags att lock in idag! 🌅' : hour < 18 ? 'Låt\'s lock in idag. 💪' : 'Bra kämpat idag. 🌙';
+  const subtitle = hour < 10 ? 'Dags att lock in idag! 🌅' : hour < 18 ? 'Fokus på det som spelar roll.' : 'Bra kämpat idag. 🌙';
 
   return (
     <div className="p-4 space-y-4">
