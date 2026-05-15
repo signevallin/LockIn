@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import {
-  collection, onSnapshot, addDoc, setDoc, deleteField,
+  collection, onSnapshot, addDoc, setDoc, deleteField, deleteDoc,
   doc, query, orderBy, Timestamp, getDoc,
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase/config';
@@ -75,5 +75,10 @@ export function useTasks(goals: Goal[] = []) {
       }))
   );
 
-  return { tasks: [...scheduledVirtual, ...tasks], completedToday, loading, addTask, toggleTask };
+  async function deleteTask(taskId: string) {
+    if (!user) return;
+    await deleteDoc(doc(db, 'users', user.uid, 'tasks', taskId));
+  }
+
+  return { tasks: [...scheduledVirtual, ...tasks], completedToday, loading, addTask, toggleTask, deleteTask };
 }

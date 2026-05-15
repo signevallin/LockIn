@@ -16,8 +16,8 @@ import { Button } from '@/components/ui/Button';
 
 export default function HomePage() {
   const { user } = useAuth();
-  const { goals } = useGoals();
-  const { tasks, completedToday, addTask, toggleTask } = useTasks(goals);
+  const { goals, removeScheduledTask } = useGoals();
+  const { tasks, completedToday, addTask, toggleTask, deleteTask } = useTasks(goals);
   const { todayCheckIn, loading: checkInLoading, checkIn } = useCheckIn();
   const [checkInOpen, setCheckInOpen] = useState(false);
   const [addTaskOpen, setAddTaskOpen] = useState(false);
@@ -75,6 +75,8 @@ export default function HomePage() {
         goals={goals}
         onToggle={toggleTask}
         onAdd={() => setAddTaskOpen(true)}
+        onDeleteTask={deleteTask}
+        onRemoveScheduled={removeScheduledTask}
       />
 
       {/* Modaler */}
