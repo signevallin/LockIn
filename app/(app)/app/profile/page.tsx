@@ -51,7 +51,7 @@ export default function ProfilePage() {
           onChange={e => setName(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && handleSaveName()}
           placeholder="Vad ska vi kalla dig?"
-          className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm focus:outline-none focus:border-earth"
+          className="w-full px-3 py-2 rounded-xl border border-sage bg-white text-earth text-sm focus:outline-none focus:border-earth"
         />
         <Button size="sm" onClick={handleSaveName} disabled={!name.trim() || saving}>
           {saving ? 'Sparar...' : saved ? '✓ Sparat!' : 'Spara namn'}

@@ -121,19 +121,19 @@ export default function HomePage() {
           placeholder="Vad ska du göra?"
           value={newTask.title}
           onChange={e => setNewTask(p => ({ ...p, title: e.target.value }))}
-          className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm mb-3 focus:outline-none focus:border-earth"
+          className="w-full px-3 py-2 rounded-xl border border-sage bg-white text-earth text-sm mb-3 focus:outline-none focus:border-earth"
         />
         <input
           placeholder="Kategori (t.ex. Hälsa)"
           value={newTask.category}
           onChange={e => setNewTask(p => ({ ...p, category: e.target.value }))}
-          className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm mb-3 focus:outline-none focus:border-earth"
+          className="w-full px-3 py-2 rounded-xl border border-sage bg-white text-earth text-sm mb-3 focus:outline-none focus:border-earth"
         />
         {goals.length > 0 && (
           <select
             value={newTask.goalId ?? ''}
             onChange={e => setNewTask(p => ({ ...p, goalId: e.target.value || null }))}
-            className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm focus:outline-none focus:border-earth bg-white"
+            className="w-full px-3 py-2 rounded-xl border border-sage bg-white text-earth text-sm focus:outline-none focus:border-earth bg-white"
           >
             <option value="">Inget mål (valfritt)</option>
             {goals.map(g => (

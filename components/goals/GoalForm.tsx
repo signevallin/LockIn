@@ -57,12 +57,12 @@ export function GoalForm({ open, onClose, onSubmit }: Props) {
           placeholder="Vad vill du uppnå?"
           value={title}
           onChange={e => setTitle(e.target.value)}
-          className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm focus:outline-none focus:border-earth"
+          className="w-full px-3 py-2 rounded-xl border border-sage bg-white text-earth text-sm focus:outline-none focus:border-earth"
         />
         <select
           value={category}
           onChange={e => setCategory(e.target.value)}
-          className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm focus:outline-none focus:border-earth bg-white"
+          className="w-full px-3 py-2 rounded-xl border border-sage bg-white text-earth text-sm focus:outline-none focus:border-earth bg-white"
         >
           {CATEGORIES.map(c => <option key={c}>{c}</option>)}
         </select>
@@ -70,7 +70,7 @@ export function GoalForm({ open, onClose, onSubmit }: Props) {
           type="date"
           value={deadline}
           onChange={e => setDeadline(e.target.value)}
-          className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm focus:outline-none focus:border-earth"
+          className="w-full px-3 py-2 rounded-xl border border-sage bg-white text-earth text-sm focus:outline-none focus:border-earth"
         />
         <div>
           <p className="text-xs text-earth-light mb-2">Delmål</p>
@@ -87,7 +87,7 @@ export function GoalForm({ open, onClose, onSubmit }: Props) {
               value={subGoalInput}
               onChange={e => setSubGoalInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && addSubGoal()}
-              className="flex-1 px-3 py-1.5 rounded-xl border border-sage text-earth text-sm focus:outline-none focus:border-earth"
+              className="flex-1 px-3 py-1.5 rounded-xl border border-sage bg-white text-earth text-sm focus:outline-none focus:border-earth"
             />
             <Button variant="outline" size="sm" onClick={addSubGoal}>+</Button>
           </div>

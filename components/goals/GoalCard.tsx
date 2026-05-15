@@ -210,7 +210,7 @@ export function GoalCard({ goal, onProgressUpdate, onDelete, onAddScheduled, onR
                 placeholder="Uppgift (t.ex. Träna)"
                 value={schedTitle}
                 onChange={e => setSchedTitle(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-xl border border-sage text-earth text-sm focus:outline-none focus:border-earth"
+                className="w-full px-3 py-1.5 rounded-xl border border-sage bg-white text-earth text-sm focus:outline-none focus:border-earth"
               />
               <div className="flex gap-1 flex-wrap">
                 {DAYS.map(({ label, day }) => (

@@ -77,7 +77,7 @@ export function PromiseForm({ open, onClose, onSubmit }: Props) {
             value={title}
             onChange={e => setTitle(e.target.value)}
             rows={3}
-            className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm resize-none focus:outline-none focus:border-earth"
+            className="w-full px-3 py-2 rounded-xl border border-sage bg-white text-earth text-sm resize-none focus:outline-none focus:border-earth"
           />
           <select
             value={category}
@@ -98,7 +98,7 @@ export function PromiseForm({ open, onClose, onSubmit }: Props) {
             value={deadline}
             onChange={e => setDeadline(e.target.value)}
             min={new Date().toISOString().split('T')[0]}
-            className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm focus:outline-none focus:border-earth"
+            className="w-full px-3 py-2 rounded-xl border border-sage bg-white text-earth text-sm focus:outline-none focus:border-earth"
           />
           {deadline && (
             <div className="bg-bay rounded-xl p-3 text-sm text-earth">
@@ -121,7 +121,7 @@ export function PromiseForm({ open, onClose, onSubmit }: Props) {
             placeholder="Belopp i kr"
             value={stakeAmount}
             onChange={e => setStakeAmount(e.target.value)}
-            className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm focus:outline-none focus:border-earth"
+            className="w-full px-3 py-2 rounded-xl border border-sage bg-white text-earth text-sm focus:outline-none focus:border-earth"
           />
           <select
             value={charityOrg}

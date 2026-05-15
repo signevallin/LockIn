@@ -103,7 +103,7 @@ export function FocusTimer({ todayMinutes, onSessionComplete }: Props) {
             min={1} max={300}
             value={customMinutes}
             onChange={e => setCustomMinutes(Math.max(1, Math.min(300, Number(e.target.value))))}
-            className="w-20 px-3 py-1.5 rounded-xl border border-sage text-earth text-sm focus:outline-none focus:border-earth"
+            className="w-20 px-3 py-1.5 rounded-xl border border-sage bg-white text-earth text-sm focus:outline-none focus:border-earth"
           />
         </div>
       )}

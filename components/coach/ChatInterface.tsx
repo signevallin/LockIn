@@ -93,7 +93,7 @@ export function ChatInterface({ context, getIdToken }: Props) {
           onKeyDown={e => e.key === 'Enter' && !e.shiftKey && sendMessage()}
           placeholder="Skriv ett meddelande..."
           disabled={loading}
-          className="flex-1 px-4 py-2.5 rounded-xl border border-sage text-earth text-sm focus:outline-none focus:border-earth disabled:opacity-50"
+          className="flex-1 px-4 py-2.5 rounded-xl border border-sage bg-white text-earth text-sm focus:outline-none focus:border-earth disabled:opacity-50"
         />
         <Button onClick={sendMessage} disabled={loading || !input.trim()} size="sm">
           Skicka

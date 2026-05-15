@@ -56,7 +56,7 @@ export function CheckInModal({ open, onClose, onSubmit }: Props) {
         value={reflection}
         onChange={e => setReflection(e.target.value)}
         rows={3}
-        className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm resize-none focus:outline-none focus:border-earth mb-4"
+        className="w-full px-3 py-2 rounded-xl border border-sage bg-white text-earth text-sm resize-none focus:outline-none focus:border-earth mb-4"
       />
       <Button size="lg" onClick={handleSubmit} disabled={saving}>
         {saving ? 'Sparar...' : 'Checka in ✓'}
