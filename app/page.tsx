@@ -14,7 +14,7 @@ export default function LandingPage() {
         <div className="text-center mb-12">
           <div className="flex justify-center mb-6">
             <img
-              src="/lockin-logo-on-earth.svg"
+              src="/lockin-logo-transparent.svg"
               alt="LockIn"
               className="w-64 h-auto rounded-2xl shadow-md"
             />
