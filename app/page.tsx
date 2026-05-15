@@ -12,9 +12,14 @@ export default function LandingPage() {
     <div className="min-h-screen bg-cream">
       <div className="max-w-md mx-auto px-6 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-earth mb-2">LockIn</h1>
-          <p className="text-earth-light text-lg">Lock in your future.</p>
-          <p className="text-earth-light text-sm mt-3 max-w-xs mx-auto">
+          <div className="flex justify-center mb-6">
+            <img
+              src="/lockin-logo-on-earth.svg"
+              alt="LockIn"
+              className="w-64 h-auto rounded-2xl shadow-md"
+            />
+          </div>
+          <p className="text-earth-light text-sm max-w-xs mx-auto">
             Den ultimata appen för att sätta mål, bygga vanor och hålla dig accountable — varje dag.
           </p>
         </div>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="320" height="320" role="img" aria-label="LockIn padlock mark">
+  <title>LockIn mark</title>
+  
+  <g transform="translate(14,14)">
+    <path d="M 10 38 L 10 26 a 16 16 0 0 1 32 0 L 42 38" fill="none" stroke="#FCE6B7" stroke-width="5.5" stroke-linecap="round"></path>
+    <rect x="0" y="36" width="52" height="38" rx="9" fill="none" stroke="#FCE6B7" stroke-width="5.5"></rect>
+    <circle cx="26" cy="52" r="3.5" fill="#FCE6B7"></circle>
+    <rect x="24" y="53" width="4" height="9" fill="#FCE6B7"></rect>
+  </g>
+</svg>

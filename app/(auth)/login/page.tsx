@@ -31,8 +31,11 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-cream flex flex-col justify-center p-6">
       <div className="w-full max-w-sm mx-auto">
-        <h1 className="text-3xl font-bold text-earth mb-1">LockIn</h1>
-        <p className="text-earth-light text-sm mb-8">Lock in your future.</p>
+        <img
+          src="/lockin-logo-on-earth.svg"
+          alt="LockIn"
+          className="w-52 h-auto rounded-2xl mb-8"
+        />
 
         <h2 className="text-lg font-semibold text-earth mb-6">
           {mode === 'login' ? 'Logga in' : 'Skapa konto'}
