@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Link from 'next/link';
 import { useAuth } from '@/lib/hooks/useAuth';
 import { useTasks } from '@/lib/hooks/useTasks';
 import { useGoals } from '@/lib/hooks/useGoals';
@@ -29,13 +30,23 @@ export default function HomePage() {
   const totalXp = calculateXp(completedToday.size);
   const name = user?.displayName || user?.email?.split('@')[0] || 'du';
 
+  const hour = new Date().getHours();
+  const greeting = hour < 10 ? 'God morgon' : hour < 18 ? 'Hej' : 'God kväll';
+  const subtitle = hour < 10 ? 'Dags att lock in idag! 🌅' : hour < 18 ? 'Låt\'s lock in idag. 💪' : 'Bra kämpat idag. 🌙';
+
   return (
     <div className="p-4 space-y-4">
       {/* Header */}
       <div className="flex items-start justify-between pt-2">
         <div>
-          <h1 className="text-xl font-bold text-earth">Hej, {name} 👋</h1>
-          <p className="text-sm text-earth-light">Låt&apos;s lock in idag.</p>
+          <h1 className="text-xl font-bold text-earth">
+            {greeting},{' '}
+            <Link href="/app/profile" className="underline decoration-dotted underline-offset-2">
+              {name}
+            </Link>{' '}
+            👋
+          </h1>
+          <p className="text-sm text-earth-light">{subtitle}</p>
         </div>
         {!checkInLoading && !todayCheckIn ? (
           <button

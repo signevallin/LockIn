@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  updateProfile,
   User,
 } from 'firebase/auth';
 import { auth } from '@/lib/firebase/config';
@@ -32,5 +33,11 @@ export function useAuth() {
     await signOut(auth);
   }
 
-  return { user, loading, login, register, logout };
+  async function updateName(name: string) {
+    if (!auth.currentUser) return;
+    await updateProfile(auth.currentUser, { displayName: name });
+    setUser({ ...auth.currentUser });
+  }
+
+  return { user, loading, login, register, logout, updateName };
 }
