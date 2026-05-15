@@ -15,13 +15,13 @@
 @theme {
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --color-earth: #513229;
-  --color-cream: #F4F1E2;
+  --color-cream: #FCE6B7;
   --color-sky: #D8EBF9;
-  --color-bay: #FCE6B7;
+  --color-bay: #D8EBF9;
   --color-sage: #D7D4B1;
   --color-streak: #e07b39;
   --color-earth-light: #7a5c54;
-  --color-cream-dark: #ede9da;
+  --color-cream-dark: #f0d48e;
 }
 
 @media (prefers-color-scheme: dark) {
