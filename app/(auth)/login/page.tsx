@@ -29,25 +29,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-cream flex items-center justify-center p-6">
-      <div className="w-full max-w-sm">
+    <div className="min-h-screen bg-cream flex flex-col justify-center p-6">
+      <div className="w-full max-w-sm mx-auto">
         <h1 className="text-3xl font-bold text-earth mb-1">LockIn</h1>
         <p className="text-earth-light text-sm mb-8">Lock in your future.</p>
 
-        <div className="flex rounded-xl overflow-hidden mb-6 border border-sage">
-          <button
-            className={`flex-1 py-2 text-sm font-semibold transition-colors ${mode === 'login' ? 'bg-earth text-cream' : 'bg-cream text-earth-light'}`}
-            onClick={() => setMode('login')}
-          >
-            Logga in
-          </button>
-          <button
-            className={`flex-1 py-2 text-sm font-semibold transition-colors ${mode === 'register' ? 'bg-earth text-cream' : 'bg-cream text-earth-light'}`}
-            onClick={() => setMode('register')}
-          >
-            Registrera
-          </button>
-        </div>
+        <h2 className="text-lg font-semibold text-earth mb-6">
+          {mode === 'login' ? 'Logga in' : 'Skapa konto'}
+        </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -60,21 +49,36 @@ export default function LoginPage() {
           />
           <input
             type="password"
-            placeholder="Lösenord"
+            placeholder="Lösenord (minst 6 tecken)"
             value={password}
             onChange={e => setPassword(e.target.value)}
             required
             className="w-full px-4 py-3 rounded-xl border border-sage bg-white text-earth placeholder-earth-light focus:outline-none focus:border-earth"
           />
-          {error && <p className="text-red-600 text-sm">{error}</p>}
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+              <p className="text-red-600 text-sm">{error}</p>
+            </div>
+          )}
           <button
             type="submit"
             disabled={submitting}
-            className="w-full bg-earth text-cream py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity disabled:opacity-60"
+            className="w-full bg-earth text-cream py-4 rounded-xl font-semibold text-base hover:opacity-90 transition-opacity disabled:opacity-60"
           >
             {submitting ? 'Väntar...' : mode === 'login' ? 'Logga in' : 'Skapa konto'}
           </button>
         </form>
+
+        <p className="text-center text-sm text-earth-light mt-6">
+          {mode === 'login' ? 'Inget konto?' : 'Redan registrerad?'}{' '}
+          <button
+            type="button"
+            onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setError(''); }}
+            className="text-earth font-semibold underline"
+          >
+            {mode === 'login' ? 'Registrera dig' : 'Logga in'}
+          </button>
+        </p>
       </div>
     </div>
   );

@@ -7,9 +7,9 @@ import {
 import { db } from '@/lib/firebase/config';
 import { useAuth } from './useAuth';
 import { todayKey } from '@/lib/utils/dateUtils';
-import type { Task } from '@/lib/types';
+import type { Task, Goal } from '@/lib/types';
 
-export function useTasks() {
+export function useTasks(goals: Goal[] = []) {
   const { user } = useAuth();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [completedToday, setCompletedToday] = useState<Set<string>>(new Set());
@@ -60,5 +60,20 @@ export function useTasks() {
     }
   }
 
-  return { tasks, completedToday, loading, addTask, toggleTask };
+  const todayDay = new Date().getDay();
+  const scheduledVirtual: Task[] = goals.flatMap(goal =>
+    (goal.scheduledTasks ?? [])
+      .map((st, i) => ({ st, i }))
+      .filter(({ st }) => st.weekdays.includes(todayDay))
+      .map(({ st, i }) => ({
+        id: `sched_${goal.id}_${i}`,
+        title: st.title,
+        category: goal.category,
+        goalId: goal.id,
+        createdAt: goal.createdAt,
+        isScheduled: true,
+      }))
+  );
+
+  return { tasks: [...scheduledVirtual, ...tasks], completedToday, loading, addTask, toggleTask };
 }

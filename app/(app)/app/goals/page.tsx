@@ -11,7 +11,7 @@ import type { Goal } from '@/lib/types';
 
 export default function GoalsPage() {
   const { user } = useAuth();
-  const { goals, loading, updateProgress } = useGoals();
+  const { goals, loading, updateProgress, deleteGoal, addScheduledTask, removeScheduledTask } = useGoals();
   const [formOpen, setFormOpen] = useState(false);
 
   async function handleAddGoal(data: Omit<Goal, 'id' | 'createdAt' | 'progress'>, subGoalTitles: string[]) {
@@ -50,7 +50,14 @@ export default function GoalsPage() {
 
       <div className="space-y-3">
         {goals.map(goal => (
-          <GoalCard key={goal.id} goal={goal} onProgressUpdate={updateProgress} />
+          <GoalCard
+            key={goal.id}
+            goal={goal}
+            onProgressUpdate={updateProgress}
+            onDelete={deleteGoal}
+            onAddScheduled={addScheduledTask}
+            onRemoveScheduled={removeScheduledTask}
+          />
         ))}
       </div>
 

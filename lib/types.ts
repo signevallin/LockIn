@@ -1,3 +1,8 @@
+export interface ScheduledTask {
+  title: string;
+  weekdays: number[]; // JS getDay(): 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
+}
+
 export interface Goal {
   id: string;
   title: string;
@@ -5,6 +10,7 @@ export interface Goal {
   deadline: Date;
   progress: number;
   createdAt: Date;
+  scheduledTasks?: ScheduledTask[];
 }
 
 export interface SubGoal {
@@ -20,6 +26,7 @@ export interface Task {
   category: string;
   goalId: string | null;
   createdAt: Date;
+  isScheduled?: boolean;
 }
 
 export interface CheckIn {

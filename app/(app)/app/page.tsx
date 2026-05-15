@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useAuth } from '@/lib/hooks/useAuth';
 import { useTasks } from '@/lib/hooks/useTasks';
+import { useGoals } from '@/lib/hooks/useGoals';
 import { useCheckIn } from '@/lib/hooks/useCheckIn';
 import { calculateStreak } from '@/lib/utils/streak';
 import { calculateXp } from '@/lib/utils/xp';
@@ -15,11 +16,12 @@ import { Button } from '@/components/ui/Button';
 
 export default function HomePage() {
   const { user } = useAuth();
-  const { tasks, completedToday, addTask, toggleTask } = useTasks();
+  const { goals } = useGoals();
+  const { tasks, completedToday, addTask, toggleTask } = useTasks(goals);
   const { todayCheckIn, loading: checkInLoading, checkIn } = useCheckIn();
   const [checkInOpen, setCheckInOpen] = useState(false);
   const [addTaskOpen, setAddTaskOpen] = useState(false);
-  const [newTask, setNewTask] = useState({ title: '', category: '' });
+  const [newTask, setNewTask] = useState({ title: '', category: '', goalId: null as string | null });
   const [addingTask, setAddingTask] = useState(false);
 
   // TODO: pass real task_completion date history for accurate streak
@@ -70,6 +72,7 @@ export default function HomePage() {
       <DailyTasks
         tasks={tasks}
         completedIds={completedToday}
+        goals={goals}
         onToggle={toggleTask}
         onAdd={() => setAddTaskOpen(true)}
       />
@@ -81,7 +84,26 @@ export default function HomePage() {
         onSubmit={checkIn}
       />
 
-      <Modal open={addTaskOpen} onClose={() => setAddTaskOpen(false)} title="Ny uppgift">
+      <Modal
+        open={addTaskOpen}
+        onClose={() => setAddTaskOpen(false)}
+        title="Ny uppgift"
+        footer={
+          <Button size="lg" disabled={addingTask} onClick={async () => {
+            if (!newTask.title || addingTask) return;
+            setAddingTask(true);
+            try {
+              await addTask({ title: newTask.title, category: newTask.category, goalId: newTask.goalId });
+              setNewTask({ title: '', category: '', goalId: null });
+              setAddTaskOpen(false);
+            } finally {
+              setAddingTask(false);
+            }
+          }}>
+            {addingTask ? 'Lägger till...' : 'Lägg till'}
+          </Button>
+        }
+      >
         <input
           placeholder="Vad ska du göra?"
           value={newTask.title}
@@ -92,21 +114,20 @@ export default function HomePage() {
           placeholder="Kategori (t.ex. Hälsa)"
           value={newTask.category}
           onChange={e => setNewTask(p => ({ ...p, category: e.target.value }))}
-          className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm mb-4 focus:outline-none focus:border-earth"
+          className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm mb-3 focus:outline-none focus:border-earth"
         />
-        <Button size="lg" disabled={addingTask} onClick={async () => {
-          if (!newTask.title || addingTask) return;
-          setAddingTask(true);
-          try {
-            await addTask({ title: newTask.title, category: newTask.category, goalId: null });
-            setNewTask({ title: '', category: '' });
-            setAddTaskOpen(false);
-          } finally {
-            setAddingTask(false);
-          }
-        }}>
-          {addingTask ? 'Lägger till...' : 'Lägg till'}
-        </Button>
+        {goals.length > 0 && (
+          <select
+            value={newTask.goalId ?? ''}
+            onChange={e => setNewTask(p => ({ ...p, goalId: e.target.value || null }))}
+            className="w-full px-3 py-2 rounded-xl border border-sage text-earth text-sm focus:outline-none focus:border-earth bg-white"
+          >
+            <option value="">Inget mål (valfritt)</option>
+            {goals.map(g => (
+              <option key={g.id} value={g.id}>{g.category} {g.title}</option>
+            ))}
+          </select>
+        )}
       </Modal>
     </div>
   );

@@ -6,7 +6,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase/config';
 import { useAuth } from './useAuth';
-import type { Goal, SubGoal } from '@/lib/types';
+import type { Goal, SubGoal, ScheduledTask } from '@/lib/types';
 
 function toGoal(id: string, data: Record<string, unknown>): Goal {
   return {
@@ -16,6 +16,7 @@ function toGoal(id: string, data: Record<string, unknown>): Goal {
     deadline: (data.deadline as Timestamp).toDate(),
     progress: data.progress as number,
     createdAt: (data.createdAt as Timestamp).toDate(),
+    scheduledTasks: (data.scheduledTasks as ScheduledTask[] | undefined) ?? [],
   };
 }
 
@@ -55,5 +56,21 @@ export function useGoals() {
     await deleteDoc(doc(db, 'users', user.uid, 'goals', goalId));
   }
 
-  return { goals, loading, addGoal, updateProgress, deleteGoal };
+  async function addScheduledTask(goalId: string, task: ScheduledTask) {
+    if (!user) return;
+    const goal = goals.find(g => g.id === goalId);
+    if (!goal) return;
+    const updated = [...(goal.scheduledTasks ?? []), task];
+    await updateDoc(doc(db, 'users', user.uid, 'goals', goalId), { scheduledTasks: updated });
+  }
+
+  async function removeScheduledTask(goalId: string, index: number) {
+    if (!user) return;
+    const goal = goals.find(g => g.id === goalId);
+    if (!goal) return;
+    const updated = (goal.scheduledTasks ?? []).filter((_, i) => i !== index);
+    await updateDoc(doc(db, 'users', user.uid, 'goals', goalId), { scheduledTasks: updated });
+  }
+
+  return { goals, loading, addGoal, updateProgress, deleteGoal, addScheduledTask, removeScheduledTask };
 }

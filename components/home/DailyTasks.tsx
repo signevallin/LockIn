@@ -1,14 +1,16 @@
 import { Button } from '@/components/ui/Button';
-import type { Task } from '@/lib/types';
+import type { Task, Goal } from '@/lib/types';
 
 interface Props {
   tasks: Task[];
   completedIds: Set<string>;
+  goals: Goal[];
   onToggle: (id: string) => void;
   onAdd: () => void;
 }
 
-export function DailyTasks({ tasks, completedIds, onToggle, onAdd }: Props) {
+export function DailyTasks({ tasks, completedIds, goals, onToggle, onAdd }: Props) {
+  const goalMap = new Map(goals.map(g => [g.id, g]));
   return (
     <div>
       <p className="text-xs uppercase tracking-widest text-earth-light mb-3">Dagens uppgifter</p>
@@ -29,7 +31,11 @@ export function DailyTasks({ tasks, completedIds, onToggle, onAdd }: Props) {
               </div>
               <div className="flex-1 min-w-0">
                 <p className={`text-sm font-medium ${done ? 'line-through text-earth-light' : 'text-earth'}`}>{task.title}</p>
-                <p className="text-xs text-earth-light">{task.category}</p>
+                <p className="text-xs text-earth-light">
+                  {task.goalId && goalMap.get(task.goalId)
+                    ? `🎯 ${goalMap.get(task.goalId)!.title}`
+                    : task.category}
+                </p>
               </div>
             </button>
           );

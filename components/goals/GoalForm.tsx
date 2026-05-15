@@ -42,7 +42,16 @@ export function GoalForm({ open, onClose, onSubmit }: Props) {
   }
 
   return (
-    <Modal open={open} onClose={onClose} title="Nytt mål">
+    <Modal
+      open={open}
+      onClose={onClose}
+      title="Nytt mål"
+      footer={
+        <Button size="lg" onClick={handleSubmit} disabled={saving}>
+          {saving ? 'Sparar...' : 'Skapa mål'}
+        </Button>
+      }
+    >
       <div className="space-y-3">
         <input
           placeholder="Vad vill du uppnå?"
@@ -84,9 +93,6 @@ export function GoalForm({ open, onClose, onSubmit }: Props) {
           </div>
         </div>
       </div>
-      <Button size="lg" className="mt-4" onClick={handleSubmit} disabled={saving}>
-        {saving ? 'Sparar...' : 'Skapa mål'}
-      </Button>
     </Modal>
   );
 }
