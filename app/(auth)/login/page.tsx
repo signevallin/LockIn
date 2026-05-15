@@ -32,7 +32,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-cream flex flex-col justify-center p-6">
       <div className="w-full max-w-sm mx-auto">
         <img
-          src="/lockin-logo-transparent.svg"
+          src="/lockin-logo-on-bay.svg"
           alt="LockIn"
           className="w-52 h-auto rounded-2xl mb-8"
         />
