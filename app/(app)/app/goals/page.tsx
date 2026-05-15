@@ -4,15 +4,26 @@ import { addDoc, collection, Timestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase/config';
 import { useAuth } from '@/lib/hooks/useAuth';
 import { useGoals } from '@/lib/hooks/useGoals';
+import { usePromises } from '@/lib/hooks/usePromises';
 import { GoalCard } from '@/components/goals/GoalCard';
 import { GoalForm } from '@/components/goals/GoalForm';
+import { PromiseCard } from '@/components/promises/PromiseCard';
+import { PromiseForm } from '@/components/promises/PromiseForm';
 import { Button } from '@/components/ui/Button';
 import type { Goal } from '@/lib/types';
 
+type Tab = 'goals' | 'promises';
+
 export default function GoalsPage() {
   const { user } = useAuth();
-  const { goals, loading, updateProgress, deleteGoal, addScheduledTask, removeScheduledTask } = useGoals();
-  const [formOpen, setFormOpen] = useState(false);
+  const { goals, loading: goalsLoading, updateProgress, deleteGoal, addScheduledTask, removeScheduledTask } = useGoals();
+  const { promises, loading: promisesLoading, addPromise, updateStatus } = usePromises();
+  const [tab, setTab] = useState<Tab>('goals');
+  const [goalFormOpen, setGoalFormOpen] = useState(false);
+  const [promiseFormOpen, setPromiseFormOpen] = useState(false);
+
+  const active = promises.filter(p => p.status === 'active');
+  const past = promises.filter(p => p.status !== 'active');
 
   async function handleAddGoal(data: Omit<Goal, 'id' | 'createdAt' | 'progress'>, subGoalTitles: string[]) {
     if (!user) return;
@@ -35,33 +46,91 @@ export default function GoalsPage() {
 
   return (
     <div className="p-4 space-y-4">
+      {/* Header */}
       <div className="flex items-center justify-between pt-2">
-        <h1 className="text-xl font-bold text-earth">Mina mål</h1>
-        <Button size="sm" onClick={() => setFormOpen(true)}>+ Nytt mål</Button>
+        <h1 className="text-xl font-bold text-earth">
+          {tab === 'goals' ? 'Mina mål' : 'Mina löften'}
+        </h1>
+        {tab === 'goals' ? (
+          <Button size="sm" onClick={() => setGoalFormOpen(true)}>+ Nytt mål</Button>
+        ) : (
+          <Button size="sm" onClick={() => setPromiseFormOpen(true)}>+ Nytt löfte</Button>
+        )}
       </div>
 
-      {loading && <p className="text-earth-light text-sm">Laddar...</p>}
-      {!loading && goals.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-earth-light text-sm mb-4">Inga mål ännu. Sätt ditt första mål!</p>
-          <Button onClick={() => setFormOpen(true)}>Skapa mål</Button>
-        </div>
+      {/* Tabs */}
+      <div className="flex gap-1 bg-cream-dark rounded-xl p-1">
+        <button
+          onClick={() => setTab('goals')}
+          className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
+            tab === 'goals' ? 'bg-white text-earth shadow-sm' : 'text-earth-light'
+          }`}
+        >
+          🎯 Mål
+        </button>
+        <button
+          onClick={() => setTab('promises')}
+          className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
+            tab === 'promises' ? 'bg-white text-earth shadow-sm' : 'text-earth-light'
+          }`}
+        >
+          🔒 Löften
+        </button>
+      </div>
+
+      {/* Goals tab */}
+      {tab === 'goals' && (
+        <>
+          {goalsLoading && <p className="text-earth-light text-sm">Laddar...</p>}
+          {!goalsLoading && goals.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-earth-light text-sm mb-4">Inga mål ännu. Sätt ditt första mål!</p>
+              <Button onClick={() => setGoalFormOpen(true)}>Skapa mål</Button>
+            </div>
+          )}
+          <div className="space-y-3">
+            {goals.map(goal => (
+              <GoalCard
+                key={goal.id}
+                goal={goal}
+                onProgressUpdate={updateProgress}
+                onDelete={deleteGoal}
+                onAddScheduled={addScheduledTask}
+                onRemoveScheduled={removeScheduledTask}
+              />
+            ))}
+          </div>
+        </>
       )}
 
-      <div className="space-y-3">
-        {goals.map(goal => (
-          <GoalCard
-            key={goal.id}
-            goal={goal}
-            onProgressUpdate={updateProgress}
-            onDelete={deleteGoal}
-            onAddScheduled={addScheduledTask}
-            onRemoveScheduled={removeScheduledTask}
-          />
-        ))}
-      </div>
+      {/* Promises tab */}
+      {tab === 'promises' && (
+        <>
+          {promisesLoading && <p className="text-earth-light text-sm">Laddar...</p>}
+          {!promisesLoading && promises.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-4xl mb-3">🔒</p>
+              <p className="text-earth-light text-sm mb-4">Inga löften ännu.<br />Lägg till ett och håll dig accountable.</p>
+              <Button onClick={() => setPromiseFormOpen(true)}>Skapa löfte</Button>
+            </div>
+          )}
+          {active.length > 0 && (
+            <div className="space-y-3">
+              <p className="text-xs uppercase tracking-widest text-earth-light">Aktiva</p>
+              {active.map(p => <PromiseCard key={p.id} promise={p} onUpdateStatus={updateStatus} />)}
+            </div>
+          )}
+          {past.length > 0 && (
+            <div className="space-y-3 mt-2">
+              <p className="text-xs uppercase tracking-widest text-earth-light">Avslutade</p>
+              {past.map(p => <PromiseCard key={p.id} promise={p} onUpdateStatus={updateStatus} />)}
+            </div>
+          )}
+        </>
+      )}
 
-      <GoalForm open={formOpen} onClose={() => setFormOpen(false)} onSubmit={handleAddGoal} />
+      <GoalForm open={goalFormOpen} onClose={() => setGoalFormOpen(false)} onSubmit={handleAddGoal} />
+      <PromiseForm open={promiseFormOpen} onClose={() => setPromiseFormOpen(false)} onSubmit={addPromise} />
     </div>
   );
 }
