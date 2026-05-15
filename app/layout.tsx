@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: 'LockIn',
   description: 'Lock in your future.',
   manifest: '/manifest.json',
+  icons: {
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
