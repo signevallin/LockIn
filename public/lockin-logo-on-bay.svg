@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 170" width="580" height="340" role="img" aria-label="LockIn">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 120" width="560" height="240" role="img" aria-label="LockIn">
   <title>LockIn — on The Bay</title>
-  
-  <rect width="290" height="170" fill="#FCE6B7"></rect>
-  <g transform="translate(0,10)">
+
+  <rect width="280" height="120" fill="#FCE6B7"></rect>
+  <g transform="translate(0,-38)">
     <text x="8" y="126" font-family="Geist, Inter, system-ui, sans-serif" font-weight="600" font-size="78" letter-spacing="-2" fill="#513229">L</text>
     <path d="M 68 90 L 68 78 a 16 16 0 0 1 32 0 L 100 90" fill="none" stroke="#513229" stroke-width="5.5" stroke-linecap="round"></path>
     <rect x="58" y="88" width="52" height="38" rx="9" fill="none" stroke="#513229" stroke-width="5.5"></rect>
