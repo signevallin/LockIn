@@ -10,7 +10,8 @@ export default function ProfilePage() {
   const [name, setName] = useState('');
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [notifStatus, setNotifStatus] = useState<'idle' | 'granted' | 'denied'>('idle');
+  const [notifStatus, setNotifStatus] = useState<'idle' | 'granted' | 'denied' | 'error'>('idle');
+  const [notifLoading, setNotifLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -29,10 +30,24 @@ export default function ProfilePage() {
     }
   }
 
+  useEffect(() => {
+    if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+      // Permission already granted in browser — will re-fetch token on click
+      setNotifStatus('idle');
+    }
+  }, []);
+
   async function handleEnableNotifications() {
-    if (!user) return;
-    const granted = await requestNotificationPermission(user.uid);
-    setNotifStatus(granted ? 'granted' : 'denied');
+    if (!user || notifLoading) return;
+    setNotifLoading(true);
+    try {
+      const granted = await requestNotificationPermission(user.uid);
+      setNotifStatus(granted ? 'granted' : 'error');
+    } catch {
+      setNotifStatus('error');
+    } finally {
+      setNotifLoading(false);
+    }
   }
 
   async function handleLogout() {
@@ -68,10 +83,17 @@ export default function ProfilePage() {
         <p className="text-xs text-earth-light mb-3">Aktivera för påminnelser om incheckning och streak.</p>
         {notifStatus === 'granted' ? (
           <p className="text-sm text-earth">✓ Notiser aktiverade</p>
-        ) : notifStatus === 'denied' ? (
-          <p className="text-sm text-red-600">Notiser nekade. Aktivera i webbläsarens inställningar.</p>
+        ) : notifStatus === 'error' ? (
+          <div className="space-y-2">
+            <p className="text-xs text-red-500">Något gick fel. Kontrollera att notiser är tillåtna i webbläsarens inställningar och försök igen.</p>
+            <Button variant="outline" onClick={handleEnableNotifications} disabled={notifLoading}>
+              {notifLoading ? 'Försöker...' : 'Försök igen 🔔'}
+            </Button>
+          </div>
         ) : (
-          <Button variant="outline" onClick={handleEnableNotifications}>Aktivera notiser 🔔</Button>
+          <Button variant="outline" onClick={handleEnableNotifications} disabled={notifLoading}>
+            {notifLoading ? 'Aktiverar...' : 'Aktivera notiser 🔔'}
+          </Button>
         )}
       </div>
 
