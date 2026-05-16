@@ -49,11 +49,11 @@ function TaskItem({ task, done, goalTitle, onToggle, onDelete, deleteLabel }: Ta
         onMouseLeave={cancelPress}
         onContextMenu={e => e.preventDefault()}
       >
-        <div className={`w-5 h-5 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-colors ${done ? 'bg-earth border-earth' : 'border-sage'}`}>
+        <div className={`w-5 h-5 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-colors ${done ? 'bg-earth border-earth animate-[check-ping_0.3s_ease-out]' : 'border-sage'}`}>
           {done && <span className="text-cream text-xs">✓</span>}
         </div>
         <div className="flex-1 min-w-0">
-          <p className={`text-sm font-medium ${done ? 'line-through text-earth-light' : 'text-earth'}`}>{task.title}</p>
+          <p className={`text-sm font-medium transition-all duration-300 ${done ? 'line-through text-earth-light' : 'text-earth'}`}>{task.title}</p>
           {(goalTitle || task.category) && (
             <p className="text-xs text-earth-light">
               {goalTitle ? `🎯 ${goalTitle}` : task.category}
