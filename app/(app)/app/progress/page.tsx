@@ -63,7 +63,7 @@ export default function ProgressPage() {
         ))}
       </div>
 
-      <div className="bg-white rounded-2xl p-4 shadow-sm">
+      <div className="bg-white rounded-2xl p-4 shadow-sm border border-cream-dark">
         <p className="text-xs uppercase tracking-widest text-earth-light mb-3">Veckans aktivitet (min)</p>
         <ActivityChart data={weekData} />
       </div>
