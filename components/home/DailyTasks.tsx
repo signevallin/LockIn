@@ -1,5 +1,6 @@
 'use client';
 import { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { Task, Goal } from '@/lib/types';
 
 const LONG_PRESS_MS = 500;
@@ -101,37 +102,45 @@ export function DailyTasks({ tasks, completedIds, goals, onToggle, onAdd, onDele
   return (
     <div>
       <p className="text-xs uppercase tracking-widest text-earth-light mt-2 mb-3">Dagens uppgifter</p>
-      <div className="space-y-2 mb-3">
-        {tasks.length === 0 && (
-          <p className="text-sm text-earth-light py-2">Inga uppgifter ännu.</p>
-        )}
-        {tasks.map(task => {
-          const goal = task.goalId ? goalMap.get(task.goalId) : undefined;
+      <motion.div className="space-y-2 mb-3">
+        <AnimatePresence>
+          {tasks.length === 0 && (
+            <p className="text-sm text-earth-light py-2">Inga uppgifter ännu.</p>
+          )}
+          {tasks.map((task, index) => {
+            const goal = task.goalId ? goalMap.get(task.goalId) : undefined;
 
-          // Parse scheduled task index from ID: "sched_{goalId}_{index}"
-          const schedMatch = task.isScheduled && task.id.match(/^sched_(.+)_(\d+)$/);
+            // Parse scheduled task index from ID: "sched_{goalId}_{index}"
+            const schedMatch = task.isScheduled && task.id.match(/^sched_(.+)_(\d+)$/);
 
-          return (
-            <TaskItem
-              key={task.id}
-              task={task}
-              done={completedIds.has(task.id)}
-              goalTitle={goal?.title}
-              onToggle={() => onToggle(task.id)}
-              deleteLabel={task.isScheduled ? `Ta bort schemat för "${task.title}"?` : `Ta bort "${task.title}"?`}
-              onDelete={() => {
-                if (schedMatch) {
-                  const goalId = schedMatch[1];
-                  const index = parseInt(schedMatch[2], 10);
-                  onRemoveScheduled(goalId, index);
-                } else {
-                  onDeleteTask(task.id);
-                }
-              }}
-            />
-          );
-        })}
-      </div>
+            return (
+              <motion.div
+                key={task.id}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2, delay: index * 0.05 }}
+              >
+                <TaskItem
+                  task={task}
+                  done={completedIds.has(task.id)}
+                  goalTitle={goal?.title}
+                  onToggle={() => onToggle(task.id)}
+                  deleteLabel={task.isScheduled ? `Ta bort schemat för "${task.title}"?` : `Ta bort "${task.title}"?`}
+                  onDelete={() => {
+                    if (schedMatch) {
+                      const goalId = schedMatch[1];
+                      const index = parseInt(schedMatch[2], 10);
+                      onRemoveScheduled(goalId, index);
+                    } else {
+                      onDeleteTask(task.id);
+                    }
+                  }}
+                />
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
+      </motion.div>
       <button
         onClick={onAdd}
         className="w-full bg-earth text-cream py-3 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity"

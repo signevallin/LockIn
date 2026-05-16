@@ -1,6 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { useAuth } from '@/lib/hooks/useAuth';
 import { BottomNav } from '@/components/layout/BottomNav';
 
@@ -24,7 +25,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="max-w-md mx-auto min-h-screen bg-cream pb-20">
-      {children}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.2 }}
+      >
+        {children}
+      </motion.div>
       <BottomNav />
     </div>
   );
