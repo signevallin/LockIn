@@ -59,7 +59,7 @@ export default function GoalsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-cream-dark rounded-xl p-1">
+      <div className="flex gap-1 bg-dice rounded-xl p-1">
         <button
           onClick={() => setTab('goals')}
           className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
