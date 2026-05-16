@@ -43,7 +43,8 @@ export default function ProfilePage() {
     try {
       const granted = await requestNotificationPermission(user.uid);
       setNotifStatus(granted ? 'granted' : 'error');
-    } catch {
+    } catch (err) {
+      console.error('[Profile] Notification error:', err);
       setNotifStatus('error');
     } finally {
       setNotifLoading(false);

@@ -18,16 +18,21 @@ export async function requestNotificationPermission(userId: string): Promise<boo
   }
 
   const messaging = getMessaging(app);
-  const token = await getToken(messaging, {
-    vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
-    ...(swReg ? { serviceWorkerRegistration: swReg } : {}),
-  });
-
-  if (token) {
-    await setDoc(doc(db, 'users', userId), { fcmToken: token }, { merge: true });
-    console.log('[FCM] Token saved for user', userId);
-  } else {
-    console.warn('[FCM] getToken returned empty — check VAPID key and SW config');
+  let token: string | null = null;
+  try {
+    token = await getToken(messaging, {
+      vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
+      ...(swReg ? { serviceWorkerRegistration: swReg } : {}),
+    });
+    if (token) {
+      await setDoc(doc(db, 'users', userId), { fcmToken: token }, { merge: true });
+      console.log('[FCM] Token saved for user', userId);
+    } else {
+      console.warn('[FCM] getToken returned empty — check VAPID key and SW config');
+    }
+  } catch (err) {
+    console.error('[FCM] getToken failed:', err);
+    throw err;
   }
   return !!token;
 }
