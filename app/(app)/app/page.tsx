@@ -39,7 +39,7 @@ export default function HomePage() {
       {/* Header */}
       <div className="flex items-start justify-between pt-2">
         <div>
-          <h1 className="text-xl font-bold text-earth">
+          <h1 className="text-2xl font-bold text-earth">
             {greeting},{' '}
             <Link href="/app/profile" className="underline decoration-dotted underline-offset-2">
               {name}
@@ -64,7 +64,7 @@ export default function HomePage() {
 
       {/* Dagligt citat */}
       <div className="bg-earth rounded-2xl p-4">
-        <p className="text-xs uppercase tracking-widest text-cream/60 mb-2">Dagens citat</p>
+        <p className="text-xs uppercase tracking-widest text-cream/60 mt-2 mb-2">Dagens citat</p>
         <p className="text-cream text-sm leading-relaxed italic">&quot;{getDailyQuote()}&quot;</p>
       </div>
 

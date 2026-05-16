@@ -1,6 +1,5 @@
 'use client';
 import { useState, useRef } from 'react';
-import { Button } from '@/components/ui/Button';
 import type { Task, Goal } from '@/lib/types';
 
 const LONG_PRESS_MS = 500;
@@ -101,7 +100,7 @@ export function DailyTasks({ tasks, completedIds, goals, onToggle, onAdd, onDele
 
   return (
     <div>
-      <p className="text-xs uppercase tracking-widest text-earth-light mb-3">Dagens uppgifter</p>
+      <p className="text-xs uppercase tracking-widest text-earth-light mt-2 mb-3">Dagens uppgifter</p>
       <div className="space-y-2 mb-3">
         {tasks.length === 0 && (
           <p className="text-sm text-earth-light py-2">Inga uppgifter ännu.</p>
@@ -133,7 +132,12 @@ export function DailyTasks({ tasks, completedIds, goals, onToggle, onAdd, onDele
           );
         })}
       </div>
-      <Button variant="outline" size="lg" onClick={onAdd}>+ Lägg till uppgift</Button>
+      <button
+        onClick={onAdd}
+        className="w-full bg-earth text-cream py-3 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity"
+      >
+        + Lägg till uppgift
+      </button>
     </div>
   );
 }
