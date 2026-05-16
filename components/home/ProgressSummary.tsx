@@ -1,5 +1,3 @@
-import { ProgressRing } from '@/components/ui/ProgressRing';
-
 interface Props {
   completedCount: number;
   totalCount: number;
@@ -8,18 +6,17 @@ interface Props {
 }
 
 export function ProgressSummary({ completedCount, totalCount, streak, totalXp }: Props) {
-  const percent = totalCount ? Math.round((completedCount / totalCount) * 100) : 0;
   return (
-    <div className="bg-sky rounded-2xl p-4">
-      <p className="text-xs font-bold uppercase tracking-widest text-earth-light mt-2 mb-3">Dagens progress</p>
-      <div className="flex items-center gap-4">
-        <ProgressRing percent={percent} size={72} />
-        <div className="space-y-1">
-          <p className="text-sm text-earth">{completedCount}/{totalCount} <span className="text-earth-light">Klara</span></p>
-          <p className="text-sm text-earth">{streak} <span className="text-earth-light">Dagar i rad 🔥</span></p>
-          <p className="text-sm text-earth">{totalXp} <span className="text-earth-light">XP ⚡</span></p>
-        </div>
-      </div>
+    <div className="flex items-center gap-2 flex-wrap">
+      <span className="text-sm bg-sky text-earth px-3 py-1.5 rounded-full font-medium">
+        {completedCount}/{totalCount} klara
+      </span>
+      <span className="text-sm bg-sky text-earth px-3 py-1.5 rounded-full font-medium">
+        {streak} dagar 🔥
+      </span>
+      <span className="text-sm bg-sky text-earth px-3 py-1.5 rounded-full font-medium">
+        {totalXp} XP ⚡
+      </span>
     </div>
   );
 }
