@@ -11,7 +11,7 @@ export function PromiseCard({ promise, onUpdateStatus }: Props) {
   const completedMilestones = promise.milestones.filter(m => m.completed).length;
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-4">
+    <div className="bg-white rounded-2xl shadow-sm border border-cream-dark p-4">
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
           <p className="font-semibold text-earth text-sm mb-1">{promise.category} {promise.title}</p>

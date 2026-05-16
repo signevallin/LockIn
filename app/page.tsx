@@ -26,7 +26,7 @@ export default function LandingPage() {
 
         <div className="grid grid-cols-2 gap-3 mb-10">
           {FEATURES.map(f => (
-            <div key={f.title} className="bg-white rounded-2xl p-4 shadow-sm">
+            <div key={f.title} className="bg-white rounded-2xl p-4 shadow-sm border border-cream-dark">
               <span className="text-2xl mb-2 block">{f.icon}</span>
               <h3 className="font-semibold text-earth text-sm mb-1">{f.title}</h3>
               <p className="text-earth-light text-xs">{f.desc}</p>
