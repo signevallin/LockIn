@@ -7,14 +7,27 @@ export async function requestNotificationPermission(userId: string): Promise<boo
   const permission = await Notification.requestPermission();
   if (permission !== 'granted') return false;
 
+  // Explicitly register (or reuse) the Firebase messaging service worker
+  let swReg: ServiceWorkerRegistration | undefined;
+  try {
+    swReg = await navigator.serviceWorker.register('/firebase-messaging-sw.js', { scope: '/' });
+    await navigator.serviceWorker.ready;
+  } catch (err) {
+    console.error('[FCM] SW registration failed:', err);
+    // Fall through — getToken may still work without an explicit registration
+  }
+
   const messaging = getMessaging(app);
   const token = await getToken(messaging, {
     vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
-    serviceWorkerRegistration: await navigator.serviceWorker.getRegistration('/firebase-messaging-sw.js'),
+    ...(swReg ? { serviceWorkerRegistration: swReg } : {}),
   });
 
   if (token) {
     await setDoc(doc(db, 'users', userId), { fcmToken: token }, { merge: true });
+    console.log('[FCM] Token saved for user', userId);
+  } else {
+    console.warn('[FCM] getToken returned empty — check VAPID key and SW config');
   }
   return !!token;
 }
