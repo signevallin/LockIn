@@ -60,7 +60,7 @@ export default function ProfilePage() {
     <div className="p-4 space-y-4">
       <h1 className="text-xl font-bold text-earth pt-2">Profil</h1>
 
-      <div className="bg-white rounded-2xl p-4 shadow-sm border border-cream-dark space-y-3">
+      <div className="bg-sky rounded-2xl p-4 shadow-sm border border-cream-dark space-y-3">
         <p className="text-sm font-semibold text-earth">Ditt namn</p>
         <input
           value={name}
@@ -74,12 +74,12 @@ export default function ProfilePage() {
         </Button>
       </div>
 
-      <div className="bg-white rounded-2xl p-4 shadow-sm border border-cream-dark">
+      <div className="bg-sky rounded-2xl p-4 shadow-sm border border-cream-dark">
         <p className="text-xs text-earth-light mb-1">Inloggad som</p>
         <p className="text-earth text-sm font-medium">{user?.email}</p>
       </div>
 
-      <div className="bg-white rounded-2xl p-4 shadow-sm border border-cream-dark">
+      <div className="bg-sky rounded-2xl p-4 shadow-sm border border-cream-dark">
         <p className="text-sm font-semibold text-earth mb-2">Push-notiser</p>
         <p className="text-xs text-earth-light mb-3">Aktivera för påminnelser om incheckning och streak.</p>
         {notifStatus === 'granted' ? (

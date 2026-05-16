@@ -78,7 +78,7 @@ export function ChatInterface({ context, getIdToken }: Props) {
       <div className="flex-1 overflow-y-auto space-y-3 pb-4">
         {messages.map((msg, i) => (
           <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${msg.role === 'user' ? 'bg-earth text-cream rounded-br-sm' : 'bg-white text-earth shadow-sm rounded-bl-sm'}`}>
+            <div className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${msg.role === 'user' ? 'bg-earth text-cream rounded-br-sm' : 'bg-sky text-earth shadow-sm rounded-bl-sm'}`}>
               {msg.content || <span className="animate-pulse">...</span>}
             </div>
           </div>

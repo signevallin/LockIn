@@ -38,7 +38,7 @@ function TaskItem({ task, done, goalTitle, onToggle, onDelete, deleteLabel }: Ta
   }
 
   return (
-    <div className={`bg-white rounded-xl shadow-sm border border-cream-dark overflow-hidden select-none ${deleteMode ? 'ring-1 ring-red-200' : ''}`}>
+    <div className={`bg-sky rounded-xl shadow-sm border border-cream-dark overflow-hidden select-none ${deleteMode ? 'ring-1 ring-red-200' : ''}`}>
       <button
         className="w-full flex items-center gap-3 py-3 px-4 text-left"
         onTouchStart={startPress}

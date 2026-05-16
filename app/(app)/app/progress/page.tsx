@@ -15,10 +15,10 @@ export default function ProgressPage() {
         <h1 className="text-xl font-bold text-earth pt-2">Min progress</h1>
         <div className="grid grid-cols-3 gap-3">
           {[0, 1, 2].map(i => (
-            <div key={i} className="bg-white rounded-2xl p-3 shadow-sm border border-cream-dark h-14 animate-pulse" />
+            <div key={i} className="bg-sky rounded-2xl p-3 shadow-sm border border-cream-dark h-14 animate-pulse" />
           ))}
         </div>
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-cream-dark h-32 animate-pulse" />
+        <div className="bg-sky rounded-2xl p-4 shadow-sm border border-cream-dark h-32 animate-pulse" />
       </div>
     );
   }
@@ -56,14 +56,14 @@ export default function ProgressPage() {
           { label: 'Sessioner', value: sessions.length.toString() },
           { label: 'Streak', value: '—' },
         ].map(stat => (
-          <div key={stat.label} className="bg-white rounded-2xl p-3 shadow-sm border border-cream-dark text-center">
+          <div key={stat.label} className="bg-sky rounded-2xl p-3 shadow-sm border border-cream-dark text-center">
             <p className="text-lg font-bold text-earth">{stat.value}</p>
             <p className="text-xs text-earth-light">{stat.label}</p>
           </div>
         ))}
       </div>
 
-      <div className="bg-white rounded-2xl p-4 shadow-sm border border-cream-dark">
+      <div className="bg-sky rounded-2xl p-4 shadow-sm border border-cream-dark">
         <p className="text-xs uppercase tracking-widest text-earth-light mb-3">Veckans aktivitet (min)</p>
         <ActivityChart data={weekData} />
       </div>

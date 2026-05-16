@@ -112,7 +112,7 @@ export function GoalCard({ goal, onProgressUpdate, onDelete, onAddScheduled, onR
   const scheduled = goal.scheduledTasks ?? [];
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-cream-dark overflow-hidden select-none">
+    <div className="bg-sky rounded-2xl shadow-sm border border-cream-dark overflow-hidden select-none">
       {/* Header — long-pressable */}
       <button
         className="w-full p-4 text-left"

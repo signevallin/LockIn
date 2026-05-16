@@ -63,7 +63,7 @@ export default function GoalsPage() {
         <button
           onClick={() => setTab('goals')}
           className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-            tab === 'goals' ? 'bg-white text-earth shadow-sm' : 'text-earth-light'
+            tab === 'goals' ? 'bg-sky text-earth shadow-sm' : 'text-earth-light'
           }`}
         >
           🎯 Mål
@@ -71,7 +71,7 @@ export default function GoalsPage() {
         <button
           onClick={() => setTab('promises')}
           className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-            tab === 'promises' ? 'bg-white text-earth shadow-sm' : 'text-earth-light'
+            tab === 'promises' ? 'bg-sky text-earth shadow-sm' : 'text-earth-light'
           }`}
         >
           🔒 Löften

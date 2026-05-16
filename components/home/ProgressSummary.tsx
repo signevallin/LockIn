@@ -7,7 +7,7 @@ interface Props {
 
 export function ProgressSummary({ completedCount, totalCount, streak, totalXp }: Props) {
   return (
-    <div className="bg-white rounded-2xl p-4 shadow-sm border border-cream-dark">
+    <div className="bg-sky rounded-2xl p-4 shadow-sm border border-cream-dark">
       <p className="text-xs uppercase tracking-widest text-earth-light mt-2 mb-3">Dagens progress</p>
       <div className="flex gap-3">
         {/* Completed Goals Chip */}
