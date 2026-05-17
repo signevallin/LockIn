@@ -127,10 +127,39 @@ export interface HealthData {
   totalCalories: number;      // active + resting kcal
   workoutMinutes: number;
   syncedAt: Date;
+  weight?: number;            // kg, from Apple Health — optional
 }
 
 export interface HealthGoals {
   dailySteps: number;
   dailyCalories: number;
   healthSyncToken?: string;
+}
+
+export interface FoodItem {
+  name: string;
+  weightG: number;
+  kcal: number;
+  proteinG: number;
+  fatG: number;
+  carbsG: number;
+}
+
+export interface FoodLogDay {
+  meals: {
+    frukost: FoodItem[];
+    lunch: FoodItem[];
+    middag: FoodItem[];
+    mellanmal: FoodItem[];
+  };
+}
+
+export interface FoodFavorite {
+  id: string;
+  name: string;
+  kcalPer100g: number;
+  proteinPer100gG: number;
+  fatPer100gG: number;
+  carbsPer100gG: number;
+  lastUsedAt: Date;
 }
