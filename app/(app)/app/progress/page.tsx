@@ -5,14 +5,22 @@ import { useHealthGoals } from '@/lib/hooks/useHealthGoals';
 import { ActivityChart } from '@/components/progress/ActivityChart';
 import { HealthStats } from '@/components/health/HealthStats';
 import { HealthSetup } from '@/components/health/HealthSetup';
+import { ViktTab } from '@/components/stats/ViktTab';
 
 const DAY_LABELS = ['Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör', 'Sön'];
+
+type Tab = 'fokus' | 'hälsa' | 'vikt';
+const TABS: { key: Tab; label: string }[] = [
+  { key: 'fokus', label: 'Fokus' },
+  { key: 'hälsa', label: 'Hälsa' },
+  { key: 'vikt', label: 'Vikt' },
+];
 
 export default function ProgressPage() {
   const { sessions, todayMinutes, loading } = useFocusSessions();
   const { goals } = useHealthGoals();
   const [period, setPeriod] = useState<'vecka' | 'månad'>('vecka');
-  const [activeTab, setActiveTab] = useState<'fokus' | 'hälsa'>('fokus');
+  const [activeTab, setActiveTab] = useState<Tab>('fokus');
 
   if (loading) {
     return (
@@ -42,24 +50,24 @@ export default function ProgressPage() {
     <div className="p-4 space-y-4">
       <h1 className="text-xl font-bold text-earth pt-2">Min progress</h1>
 
-      {/* Main Fokus / Hälsa toggle */}
+      {/* Tab toggle */}
       <div className="flex gap-2">
-        {(['fokus', 'hälsa'] as const).map(tab => (
+        {TABS.map(tab => (
           <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors capitalize ${
-              activeTab === tab
+            key={tab.key}
+            onClick={() => setActiveTab(tab.key)}
+            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+              activeTab === tab.key
                 ? 'bg-earth text-cream'
                 : 'bg-cream-dark text-earth-light'
             }`}
           >
-            {tab === 'fokus' ? 'Fokus' : 'Hälsa'}
+            {tab.label}
           </button>
         ))}
       </div>
 
-      {activeTab === 'fokus' ? (
+      {activeTab === 'fokus' && (
         <>
           {/* Period toggle */}
           <div className="flex gap-2">
@@ -101,11 +109,13 @@ export default function ProgressPage() {
             <ActivityChart data={weekData} />
           </div>
         </>
-      ) : goals?.healthSyncToken ? (
-        <HealthStats />
-      ) : (
-        <HealthSetup />
       )}
+
+      {activeTab === 'hälsa' && (
+        goals?.healthSyncToken ? <HealthStats /> : <HealthSetup />
+      )}
+
+      {activeTab === 'vikt' && <ViktTab />}
     </div>
   );
 }
