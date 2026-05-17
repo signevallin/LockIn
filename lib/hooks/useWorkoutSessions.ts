@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
 import {
-  collection, addDoc, query, orderBy, limit, getDocs, Timestamp,
+  collection, addDoc, query, orderBy, limit, onSnapshot, Timestamp,
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase/config';
 import { useAuth } from './useAuth';
@@ -14,13 +14,14 @@ function toSession(id: string, data: Record<string, unknown>): WorkoutSession {
     templateName: data.templateName as string,
     date: data.date as string,
     exercises: (data.exercises as SessionExercise[]) ?? [],
-    completedAt: (data.completedAt as Timestamp).toDate(),
+    completedAt: data.completedAt ? (data.completedAt as Timestamp).toDate() : new Date(),
   };
 }
 
 export function useWorkoutSessions() {
   const { user } = useAuth();
   const [recentSessions, setRecentSessions] = useState<WorkoutSession[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user) return;
@@ -29,8 +30,9 @@ export function useWorkoutSessions() {
       orderBy('completedAt', 'desc'),
       limit(20),
     );
-    getDocs(q).then(snap => {
+    return onSnapshot(q, snap => {
       setRecentSessions(snap.docs.map(d => toSession(d.id, d.data())));
+      setLoading(false);
     });
   }, [user]);
 
@@ -61,5 +63,5 @@ export function useWorkoutSessions() {
     });
   }
 
-  return { recentSessions, getLastSet, saveSession };
+  return { recentSessions, loading, getLastSet, saveSession };
 }

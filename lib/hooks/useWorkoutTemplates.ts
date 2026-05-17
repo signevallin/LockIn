@@ -13,7 +13,7 @@ function toTemplate(id: string, data: Record<string, unknown>): WorkoutTemplate 
     id,
     name: data.name as string,
     exerciseIds: (data.exerciseIds as string[]) ?? [],
-    createdAt: (data.createdAt as Timestamp).toDate(),
+    createdAt: data.createdAt ? (data.createdAt as Timestamp).toDate() : new Date(),
   };
 }
 
