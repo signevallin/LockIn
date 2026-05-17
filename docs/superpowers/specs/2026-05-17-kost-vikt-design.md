@@ -131,13 +131,13 @@ The Stats screen currently has two tabs: Fokus and Hälsa. Add a third: **Vikt**
 
 ### 3.2 Vikt Tab Sections
 
-#### Section A: Förbränning vs Intag · 7 dagar (grouped bar chart)
+#### Section A: Förbränning vs Intag · 7 dagar (line chart)
 
-A grouped bar chart showing the last 7 days (Mon–today). For each day, two side-by-side bars:
-- Dark brown bar: totalCalories (burned)
-- Yellow bar: consumed kcal (from food log)
+A dual-line chart showing the last 7 days (Mon–today). Two lines:
+- Dark brown line with dots: totalCalories burned per day
+- Yellow line with dots: consumed kcal per day (from food log)
 
-Today's bars are rendered at 50% opacity (day not complete). X-axis: Mån/Tis/Ons/.../Idag. No Y-axis labels (relative heights sufficient). Legend: Förbrukat (brown) / Intaget (yellow).
+Today's points are rendered at ~50% opacity (day not complete). X-axis labels: Mån/Tis/Ons/Tor/Fre/Lör/Idag. Y-axis: 3 horizontal grid lines with kcal labels (e.g. 1500/2000/2500). Legend: Förbrukat (brown) / Intaget (yellow). Implemented as an inline SVG.
 
 #### Section B: Denna vecka · Energibalans
 
@@ -205,7 +205,7 @@ Weight is optional — existing syncs without weight continue to work.
 | `components/kost/DailyNutritionChips.tsx` | Row of 4 summary chips |
 | `components/kost/FoodSearchResult.tsx` | Single search result row |
 | `components/stats/ViktTab.tsx` | Full Vikt tab content |
-| `components/stats/BurnedVsConsumedChart.tsx` | Grouped bar chart (Section A) |
+| `components/stats/BurnedVsConsumedChart.tsx` | Dual-line chart (Section A) |
 | `components/stats/PlanVsActualChart.tsx` | Line chart (Section D) |
 | `lib/hooks/useFoodLog.ts` | Read/write food log for a date |
 | `lib/hooks/useFoodFavorites.ts` | Read/write favorites |
