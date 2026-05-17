@@ -12,6 +12,7 @@ import { ProgressSummary } from '@/components/home/ProgressSummary';
 import { DailyTasks } from '@/components/home/DailyTasks';
 import { CheckInModal } from '@/components/home/CheckInModal';
 import { CoachCard } from '@/components/home/CoachCard';
+import { HealthChips } from '@/components/health/HealthChips';
 import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 
@@ -67,6 +68,9 @@ export default function HomePage() {
         <p className="text-xs uppercase tracking-widest text-cream/60 mt-2 mb-2">Dagens citat</p>
         <p className="text-cream text-sm leading-relaxed italic">&quot;{getDailyQuote()}&quot;</p>
       </div>
+
+      {/* Apple Health */}
+      <HealthChips />
 
       {/* Progress */}
       <ProgressSummary
