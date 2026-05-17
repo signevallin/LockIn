@@ -15,6 +15,7 @@ describe('getExerciseById', () => {
 
   it('returns machine exercise under its muscle group', () => {
     const ex = getExerciseById('leg-press');
+    expect(ex).toBeDefined();
     expect(ex!.category).toBe('Ben');
     expect(ex!.type).toBe('machine');
   });

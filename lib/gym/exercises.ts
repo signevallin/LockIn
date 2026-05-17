@@ -17,10 +17,11 @@ export const STATIC_EXERCISES: WorkoutExercise[] = [
   { id: 'deadlift', name: 'Marklyft', category: 'Ben', type: 'free_weight' },
   { id: 'romanian-deadlift', name: 'Rumänsk marklyft', category: 'Ben', type: 'free_weight' },
   { id: 'leg-press', name: 'Benpress', category: 'Ben', type: 'machine' },
-  { id: 'leg-extension', name: 'Benspark', category: 'Ben', type: 'machine' },
+  { id: 'leg-extension', name: 'Benextension', category: 'Ben', type: 'machine' },
   { id: 'leg-curl', name: 'Benböjning', category: 'Ben', type: 'machine' },
   { id: 'calf-press', name: 'Vadpress', category: 'Ben', type: 'machine' },
   { id: 'lunges', name: 'Utfall', category: 'Ben', type: 'free_weight' },
+  { id: 'sumo-deadlift', name: 'Sumo marklyft', category: 'Ben', type: 'free_weight' },
   // Rygg
   { id: 'lat-pulldown', name: 'Latsdrag', category: 'Rygg', type: 'machine' },
   { id: 'seated-row', name: 'Sittande rodd', category: 'Rygg', type: 'machine' },
@@ -28,8 +29,9 @@ export const STATIC_EXERCISES: WorkoutExercise[] = [
   { id: 'pull-ups', name: 'Chins', category: 'Rygg', type: 'bodyweight' },
   { id: 'cable-row', name: 'Kabeldrag', category: 'Rygg', type: 'machine' },
   { id: 'hyperextension', name: 'Hyperextension', category: 'Rygg', type: 'bodyweight' },
-  { id: 'sumo-deadlift', name: 'Sumo marklyft', category: 'Rygg', type: 'free_weight' },
+
   { id: 'dumbbell-row', name: 'Hantelrodd', category: 'Rygg', type: 'free_weight' },
+  { id: 'back-extension', name: 'Rygglyft', category: 'Rygg', type: 'bodyweight' },
   // Axlar
   { id: 'overhead-press', name: 'Militärpress', category: 'Axlar', type: 'free_weight' },
   { id: 'shoulder-press-machine', name: 'Axelpress', category: 'Axlar', type: 'machine' },
@@ -54,7 +56,7 @@ export const STATIC_EXERCISES: WorkoutExercise[] = [
   { id: 'situps', name: 'Situps', category: 'Mage', type: 'bodyweight' },
   { id: 'cable-crunch', name: 'Kabelcrunch', category: 'Mage', type: 'machine' },
   { id: 'leg-raise', name: 'Benspark liggande', category: 'Mage', type: 'bodyweight' },
-  { id: 'back-extension', name: 'Rygglyft', category: 'Mage', type: 'bodyweight' },
+
   { id: 'russian-twist', name: 'Russian twist', category: 'Mage', type: 'bodyweight' },
 ];
 
