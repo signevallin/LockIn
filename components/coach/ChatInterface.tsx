@@ -51,10 +51,10 @@ export function ChatInterface({ context, getIdToken }: Props) {
         const { done, value } = await reader.read();
         if (done) break;
         const chunk = decoder.decode(value);
-        const lines = chunk.split('\n').filter(l => l.startsWith('data: '));
+        const lines = chunk.split('\n').filter(l => l.trim());
         for (const line of lines) {
           try {
-            const data = JSON.parse(line.slice(6));
+            const data = JSON.parse(line);
             if (data.type === 'content_block_delta' && data.delta?.text) {
               setMessages(prev => {
                 const updated = [...prev];
