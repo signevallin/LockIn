@@ -121,3 +121,16 @@ export interface WorkoutSession {
   exercises: SessionExercise[];
   completedAt: Date;
 }
+
+export interface HealthData {
+  steps: number;
+  totalCalories: number;      // active + resting kcal
+  workoutMinutes: number;
+  syncedAt: Date;
+}
+
+export interface HealthGoals {
+  dailySteps: number;
+  dailyCalories: number;
+  healthSyncToken?: string;
+}
