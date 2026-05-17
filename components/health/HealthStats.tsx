@@ -5,6 +5,7 @@ import { useHealthData } from '@/lib/hooks/useHealthData';
 import { useHealthWeek } from '@/lib/hooks/useHealthWeek';
 import { GoalEditor } from './GoalEditor';
 import { ActivityChart } from '@/components/progress/ActivityChart';
+import { SHORTCUT_URL } from '@/lib/health/shortcut';
 
 function todayDate(): string {
   return new Date().toISOString().split('T')[0];
@@ -28,6 +29,7 @@ export function HealthStats() {
   const { data } = useHealthData(today);
   const { days } = useHealthWeek();
   const [goalEditorOpen, setGoalEditorOpen] = useState(false);
+  const [showToken, setShowToken] = useState(false);
 
   // Build chart data: one entry per day, oldest→newest, matching ActivityChart's prop shape
   const chartData = days.map(d => {
@@ -108,13 +110,36 @@ export function HealthStats() {
             </p>
             <p className="text-xs text-earth-light">{syncLabel}</p>
           </div>
-          <button
-            onClick={() => setGoalEditorOpen(true)}
-            className="text-xs text-earth border border-sage bg-white px-3 py-1.5 rounded-lg flex-shrink-0"
-          >
-            Ändra mål
-          </button>
+          <div className="flex gap-2 flex-shrink-0">
+            <button
+              onClick={() => setShowToken(v => !v)}
+              className="text-xs text-earth border border-sage bg-white px-3 py-1.5 rounded-lg"
+            >
+              Token
+            </button>
+            <button
+              onClick={() => setGoalEditorOpen(true)}
+              className="text-xs text-earth border border-sage bg-white px-3 py-1.5 rounded-lg"
+            >
+              Ändra mål
+            </button>
+          </div>
         </div>
+
+        {/* Token panel — shown when user taps "Token" */}
+        {showToken && goals?.healthSyncToken && (
+          <div className="bg-sky rounded-2xl p-4 space-y-3">
+            <p className="text-xs font-semibold text-earth">Din synk-token</p>
+            <div className="bg-white rounded-xl border border-sage px-3 py-2 font-mono text-xs text-earth break-all select-all">
+              {goals.healthSyncToken}
+            </div>
+            <ol className="space-y-2 text-xs text-earth">
+              <li><span className="font-semibold">1.</span> <a href={SHORTCUT_URL} target="_blank" rel="noopener noreferrer" className="underline text-earth-light">Hämta Shortcutet →</a></li>
+              <li><span className="font-semibold">2.</span> Klistra in token när du installerar Shortcutet</li>
+              <li><span className="font-semibold">3.</span> Shortcuts → Automatisering → tre automationer: <strong>08:00, 12:00, 20:00</strong></li>
+            </ol>
+          </div>
+        )}
       </div>
 
       <GoalEditor
