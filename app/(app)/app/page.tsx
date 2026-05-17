@@ -137,7 +137,7 @@ export default function HomePage() {
           >
             <option value="">Inget mål (valfritt)</option>
             {goals.map(g => (
-              <option key={g.id} value={g.id}>{g.category} {g.title}</option>
+              <option key={g.id} value={g.id}>{g.category.split(' ')[0]} {g.title}</option>
             ))}
           </select>
         )}

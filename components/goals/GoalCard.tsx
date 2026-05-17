@@ -125,7 +125,7 @@ export function GoalCard({ goal, onProgressUpdate, onDelete, onAddScheduled, onR
         onContextMenu={e => e.preventDefault()}
       >
         <div className="flex items-start justify-between mb-2">
-          <p className="font-semibold text-earth text-sm flex-1">{goal.category} {goal.title}</p>
+          <p className="font-semibold text-earth text-sm flex-1">{goal.category.split(' ')[0]} {goal.title}</p>
           <span className="text-xs text-earth-light ml-2">
             {deleteMode ? '🗑' : expanded ? '▲' : '▼'}
           </span>
