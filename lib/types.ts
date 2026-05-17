@@ -75,3 +75,49 @@ export interface CoachContext {
   promises: (Pick<UserPromise, 'title' | 'stakeAmount' | 'charityOrg'> & { daysLeft: number })[];
   lastCheckIn: Pick<CheckIn, 'mood' | 'reflection'> | null;
 }
+
+export type ExerciseType = 'free_weight' | 'machine' | 'bodyweight';
+
+export type ExerciseCategory =
+  | 'Bröst'
+  | 'Ben'
+  | 'Rygg'
+  | 'Axlar'
+  | 'Biceps'
+  | 'Triceps'
+  | 'Mage';
+
+export interface WorkoutExercise {
+  id: string;
+  name: string;
+  category: ExerciseCategory;
+  type: ExerciseType;
+  isCustom?: boolean;
+}
+
+export interface WorkoutTemplate {
+  id: string;
+  name: string;
+  exerciseIds: string[];
+  createdAt: Date;
+}
+
+export interface WorkoutSet {
+  weight: number;
+  reps: number;
+}
+
+export interface SessionExercise {
+  exerciseId: string;
+  exerciseName: string;
+  sets: WorkoutSet[];
+}
+
+export interface WorkoutSession {
+  id: string;
+  templateId: string;
+  templateName: string;
+  date: string; // "YYYY-MM-DD"
+  exercises: SessionExercise[];
+  completedAt: Date;
+}
