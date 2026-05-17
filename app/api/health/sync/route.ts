@@ -12,12 +12,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { token, steps, totalCalories, workoutMinutes, date } = body as {
+  const { token, steps, totalCalories, workoutMinutes, date, weight } = body as {
     token?: string;
     steps?: number;
     totalCalories?: number;
     workoutMinutes?: number;
     date?: string;
+    weight?: number;
   };
 
   if (!token || typeof token !== 'string') {
@@ -41,12 +42,21 @@ export async function POST(req: Request) {
   }
 
   const uid = (tokenDoc.data() as { uid: string }).uid;
+
+  const payload: Record<string, unknown> = {
+    steps,
+    totalCalories,
+    workoutMinutes,
+    syncedAt: FieldValue.serverTimestamp(),
+  };
+  if (typeof weight === 'number') payload.weight = weight;
+
   await db
     .collection('users')
     .doc(uid)
     .collection('health_data')
     .doc(date)
-    .set({ steps, totalCalories, workoutMinutes, syncedAt: FieldValue.serverTimestamp() });
+    .set(payload);
 
   return NextResponse.json({ ok: true });
 }

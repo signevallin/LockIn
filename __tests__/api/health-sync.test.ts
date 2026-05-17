@@ -94,4 +94,46 @@ describe('POST /api/health/sync', () => {
       syncedAt: 'mock-timestamp',
     });
   });
+
+  it('stores weight when provided in payload', async () => {
+    mockTokenGet.mockResolvedValueOnce({ exists: true, data: () => ({ uid: 'user123' }) });
+    mockDataSet.mockResolvedValueOnce(undefined);
+    const req = new Request('http://localhost/api/health/sync', {
+      method: 'POST',
+      body: JSON.stringify({
+        token: 'valid-token',
+        steps: 8432,
+        totalCalories: 2140,
+        workoutMinutes: 38,
+        date: '2026-05-17',
+        weight: 72.4,
+      }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const res = await POST(req);
+    expect(res.status).toBe(200);
+    expect(mockDataSet).toHaveBeenCalledWith(
+      expect.objectContaining({ weight: 72.4 }),
+    );
+  });
+
+  it('omits weight from stored data when not provided', async () => {
+    mockTokenGet.mockResolvedValueOnce({ exists: true, data: () => ({ uid: 'user123' }) });
+    mockDataSet.mockResolvedValueOnce(undefined);
+    const req = new Request('http://localhost/api/health/sync', {
+      method: 'POST',
+      body: JSON.stringify({
+        token: 'valid-token',
+        steps: 8432,
+        totalCalories: 2140,
+        workoutMinutes: 38,
+        date: '2026-05-17',
+      }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const res = await POST(req);
+    expect(res.status).toBe(200);
+    const call = mockDataSet.mock.calls[0][0] as Record<string, unknown>;
+    expect('weight' in call).toBe(false);
+  });
 });
