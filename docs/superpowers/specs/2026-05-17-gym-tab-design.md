@@ -78,7 +78,7 @@ customExercises/{exerciseId}
 6. Tap "Avsluta pass ✓" → writes workoutSession to Firestore, returns to template list
 
 ### Edit a template
-Long-press a template card → edit/delete options appear (same pattern as GoalCard).
+Long-press a template card → edit/delete options appear (same pattern as GoalCard). Tapping edit opens WorkoutTemplateForm pre-filled with the template's current name and exercises. Inside the form, each exercise row has ▲ / ▼ buttons to reorder it up or down in the list. The updated `exerciseIds` order is saved to Firestore on "Spara mall".
 
 ### Add a custom exercise
 Inside ExerciseLibraryModal, tap "+ Skapa egen övning" → inline form: name, category (select), type (select). Saved to `customExercises` in Firestore.
@@ -103,6 +103,13 @@ Inside ExerciseLibraryModal, tap "+ Skapa egen övning" → inline form: name, c
 - Each card: template name, first 3 exercise names + "+N fler", "Starta" pill button
 - Long-press → show edit (opens WorkoutTemplateForm pre-filled) and delete
 - Empty state: friendly message + "Skapa ditt första pass"
+
+### WorkoutTemplateForm (exercise list)
+- Each exercise row in the form shows the exercise name + a ▲ button and a ▼ button
+- ▲ is disabled for the first exercise, ▼ is disabled for the last
+- Tapping ▲ or ▼ swaps the exercise with its neighbour in local state immediately
+- Order is persisted to Firestore when the user taps "Spara mall"
+- Each row also has a ✕ button to remove the exercise from the template
 
 ## Data Flow
 
