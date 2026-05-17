@@ -22,6 +22,7 @@ function toHealthData(data: Record<string, unknown>): HealthData {
     syncedAt: data.syncedAt
       ? (data.syncedAt as Timestamp).toDate()
       : new Date(),
+    weight: typeof data.weight === 'number' ? data.weight : undefined,
   };
 }
 
