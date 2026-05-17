@@ -33,7 +33,17 @@ export function ExerciseLibraryModal({ open, onClose, onSelect, excludeIds = [] 
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (!open || !user) return;
+    if (!open) {
+      // Reset form state on close
+      setSearch('');
+      setCategory('Alla');
+      setShowCreateForm(false);
+      setNewName('');
+      setNewCategory('Bröst');
+      setNewType('free_weight');
+      return;
+    }
+    if (!user) return;
     getDocs(collection(db, 'users', user.uid, 'customExercises')).then(snap => {
       setCustomExercises(snap.docs.map(d => ({
         id: d.id,
@@ -42,6 +52,8 @@ export function ExerciseLibraryModal({ open, onClose, onSelect, excludeIds = [] 
         type: d.data().type as ExerciseType,
         isCustom: true,
       })));
+    }).catch(() => {
+      // Silently ignore — user just won't see custom exercises if fetch fails
     });
   }, [open, user]);
 
@@ -149,7 +161,7 @@ export function ExerciseLibraryModal({ open, onClose, onSelect, excludeIds = [] 
               <option value="bodyweight">Kroppsvikt</option>
             </select>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={() => setShowCreateForm(false)}>Avbryt</Button>
+              <Button variant="outline" size="sm" onClick={() => { setShowCreateForm(false); setNewName(''); }}>Avbryt</Button>
               <Button size="sm" onClick={handleCreateCustom} disabled={!newName.trim() || saving}>
                 {saving ? 'Sparar...' : 'Skapa'}
               </Button>
