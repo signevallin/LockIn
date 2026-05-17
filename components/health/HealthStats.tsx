@@ -56,7 +56,7 @@ export function HealthStats() {
           <div className="grid grid-cols-3 gap-3 text-center">
             <div>
               <p className="text-xl font-bold text-earth">
-                {data ? data.steps.toLocaleString('sv-SE') : '—'}
+                {data ? Math.round(data.steps).toLocaleString('sv-SE') : '—'}
               </p>
               <p className="text-xs text-earth-light">👟 steg</p>
               {data && goals && (
@@ -70,7 +70,7 @@ export function HealthStats() {
             </div>
             <div>
               <p className="text-xl font-bold text-earth">
-                {data ? data.totalCalories.toLocaleString('sv-SE') : '—'}
+                {data ? Math.round(data.totalCalories).toLocaleString('sv-SE') : '—'}
               </p>
               <p className="text-xs text-earth-light">🔥 kcal</p>
               {data && goals && (
@@ -84,7 +84,7 @@ export function HealthStats() {
             </div>
             <div>
               <p className="text-xl font-bold text-earth">
-                {data ? data.workoutMinutes : '—'}
+                {data ? Math.round(data.workoutMinutes) : '—'}
               </p>
               <p className="text-xs text-earth-light">💪 träningsmin</p>
             </div>

@@ -22,8 +22,8 @@ export function HealthChips() {
   // Only render once the user has set up the Shortcut integration
   if (!goals?.healthSyncToken) return null;
 
-  const steps = data?.steps ?? null;
-  const calories = data?.totalCalories ?? null;
+  const steps = data?.steps != null ? Math.round(data.steps) : null;
+  const calories = data?.totalCalories != null ? Math.round(data.totalCalories) : null;
 
   return (
     <div className="flex gap-3">
