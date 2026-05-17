@@ -14,7 +14,7 @@ export function PromiseCard({ promise, onUpdateStatus }: Props) {
     <div className="bg-sky rounded-2xl shadow-sm border border-cream-dark p-4">
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
-          <p className="font-semibold text-earth text-sm mb-1">{promise.category} {promise.title}</p>
+          <p className="font-semibold text-earth text-sm mb-1">{promise.category.split(' ')[0]} {promise.title}</p>
           <p className="text-xs text-earth-light">
             {daysLeft > 0 ? `${daysLeft} dagar kvar` : 'Passerad deadline'} · {promise.stakeAmount} kr → {promise.charityOrg}
           </p>
