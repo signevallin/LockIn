@@ -44,10 +44,13 @@ function BarChartIcon() {
   );
 }
 
-function SparkleIcon() {
+function ForkKnifeIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6L12 2z" />
+      <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+      <path d="M7 2v20" />
+      <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3z" />
+      <path d="M18 22V15" />
     </svg>
   );
 }
@@ -57,7 +60,7 @@ const NAV = [
   { href: '/app/goals', label: 'Mål', Icon: TargetIcon },
   { href: '/app/gym', label: 'Gym', Icon: DumbbellIcon },
   { href: '/app/progress', label: 'Stats', Icon: BarChartIcon },
-  { href: '/app/coach', label: 'Coach', Icon: SparkleIcon },
+  { href: '/app/kost', label: 'Kost', Icon: ForkKnifeIcon },
 ];
 
 export function BottomNav() {
