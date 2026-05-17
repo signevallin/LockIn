@@ -21,11 +21,15 @@ function TargetIcon() {
   );
 }
 
-function ClockIcon() {
+function DumbbellIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" />
-      <polyline points="12 7 12 12 15 14" />
+      <path d="M6.5 6.5h11" />
+      <path d="M6.5 17.5h11" />
+      <path d="M5 5v14" strokeWidth="3" strokeLinecap="round" />
+      <path d="M3 8v8" strokeWidth="3" strokeLinecap="round" />
+      <path d="M19 5v14" strokeWidth="3" strokeLinecap="round" />
+      <path d="M21 8v8" strokeWidth="3" strokeLinecap="round" />
     </svg>
   );
 }
@@ -51,7 +55,7 @@ function SparkleIcon() {
 const NAV = [
   { href: '/app', label: 'Hem', Icon: HouseIcon },
   { href: '/app/goals', label: 'Mål', Icon: TargetIcon },
-  { href: '/app/focus', label: 'Fokus', Icon: ClockIcon },
+  { href: '/app/gym', label: 'Gym', Icon: DumbbellIcon },
   { href: '/app/progress', label: 'Stats', Icon: BarChartIcon },
   { href: '/app/coach', label: 'Coach', Icon: SparkleIcon },
 ];
