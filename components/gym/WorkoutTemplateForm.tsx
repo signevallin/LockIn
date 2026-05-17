@@ -18,6 +18,7 @@ export function WorkoutTemplateForm({ open, onClose, onSubmit, existing }: Props
   const [exercises, setExercises] = useState<WorkoutExercise[]>([]);
   const [libraryOpen, setLibraryOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!open) return;
@@ -59,9 +60,12 @@ export function WorkoutTemplateForm({ open, onClose, onSubmit, existing }: Props
   async function handleSubmit() {
     if (!name.trim() || saving) return;
     setSaving(true);
+    setError('');
     try {
       await onSubmit(name.trim(), exercises.map(e => e.id));
       onClose();
+    } catch {
+      setError('Kunde inte spara. Försök igen.');
     } finally {
       setSaving(false);
     }
@@ -121,6 +125,7 @@ export function WorkoutTemplateForm({ open, onClose, onSubmit, existing }: Props
           >
             + Lägg till övning
           </button>
+          {error && <p className="text-sm text-red-500 text-center">{error}</p>}
         </div>
       </Modal>
       <ExerciseLibraryModal
