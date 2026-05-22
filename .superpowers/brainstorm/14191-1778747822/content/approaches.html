@@ -1,0 +1,42 @@
+<h2>Tre sätt att bygga LockIn</h2>
+<p class="subtitle">Samma slutresultat — olika avvägningar i komplexitet och flexibilitet</p>
+
+<div class="options">
+
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>React + Vite + Supabase <span style="color:#10b981;font-size:12px;">★ Rekommenderas</span></h3>
+      <p>En enkel, snabb webbapp byggd med React och Vite. Supabase hanterar inloggning och databas. Appen görs till en PWA (installerbar på hemskärmen). Enklast att komma igång med — du får en fungerande app snabbt utan onödig komplexitet.</p>
+      <div class="pros-cons" style="margin-top:10px;">
+        <div class="pros"><h4>Fördelar</h4><ul><li>Snabbast att bygga</li><li>Enkel arkitektur</li><li>PWA-stöd enkelt att lägga till</li><li>Supabase ger auth + DB på 5 min</li></ul></div>
+        <div class="cons"><h4>Nackdelar</h4><ul><li>Ingen server-side rendering</li><li>Sämre SEO (men irrelevant för en app)</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Next.js + Supabase</h3>
+      <p>Next.js är ett kraftfullare React-ramverk med server-side rendering och filbaserad routing. Mer boilerplate och konfiguration, men bra om du vill lägga till publicerade sidor (landningssida, blogg) i framtiden.</p>
+      <div class="pros-cons" style="margin-top:10px;">
+        <div class="pros"><h4>Fördelar</h4><ul><li>Stöd för SSR och API-routes</li><li>Bra för landningssida + app i ett</li><li>Stort ekosystem</li></ul></div>
+        <div class="cons"><h4>Nackdelar</h4><ul><li>Mer komplex setup</li><li>Överkurs för ett MVP</li><li>Långsammare att komma igång</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>React Native + Supabase</h3>
+      <p>Riktig mobilapp för iOS (och Android). Ser ut och känns precis som en native-app. Kräver Xcode, Apple Developer-konto och publicering till App Store. Mycket mer arbete att sätta upp.</p>
+      <div class="pros-cons" style="margin-top:10px;">
+        <div class="pros"><h4>Fördelar</h4><ul><li>Riktig mobilupplevelse</li><li>Push-notiser enkelt</li><li>Kan publiceras i App Store</li></ul></div>
+        <div class="cons"><h4>Nackdelar</h4><ul><li>Komplex setup och byggtid</li><li>Kräver Apple-konto ($99/år)</li><li>Svårare att iterera snabbt</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+</div>

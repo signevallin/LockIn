@@ -1,0 +1,12 @@
+{"type":"server-started","port":50952,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:50952","screen_dir":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/10852-1779015520/content","state_dir":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/10852-1779015520/state"}
+{"type":"screen-added","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/10852-1779015520/content/health-placement.html"}
+{"type":"screen-updated","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/10852-1779015520/content/health-placement.html"}
+{"type":"screen-added","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/10852-1779015520/content/waiting.html"}
+{"type":"screen-updated","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/10852-1779015520/content/waiting.html"}
+{"type":"screen-added","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/10852-1779015520/content/health-design.html"}
+{"type":"screen-updated","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/10852-1779015520/content/health-design.html"}
+{"type":"screen-added","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/10852-1779015520/content/health-design-v2.html"}
+{"type":"screen-updated","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/10852-1779015520/content/health-design-v2.html"}
+{"type":"screen-added","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/10852-1779015520/content/waiting-2.html"}
+{"type":"screen-updated","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/10852-1779015520/content/waiting-2.html"}
+{"type":"server-stopped","reason":"idle timeout"}

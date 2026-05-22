@@ -1,0 +1,11 @@
+{"type":"server-started","port":53297,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:53297","screen_dir":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/7665-1779010931/content","state_dir":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/7665-1779010931/state"}
+{"type":"screen-added","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/7665-1779010931/content/gym-layout.html"}
+{"type":"screen-updated","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/7665-1779010931/content/gym-layout.html"}
+{"source":"user-event","type":"click","text":"AKTIVT PASS — Push-dag\n      \n        Bänkpress\n        \n          Set 1: 60kg × 10\n          Set 2: 65kg × 8\n          + Set\n        \n      \n      \n        Triceps pushdown\n        Förra: 30kg × 12\n      \n    \n    \n      B — Aktivt pass-läge\n      Välj mall → Starta pass. Logga set direkt i listan medan du tränar. Set 1, 2, 3 visas inline.","choice":"b","id":null,"timestamp":1779011250126}
+{"type":"screen-added","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/7665-1779010931/content/gym-activepass.html"}
+{"type":"screen-updated","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/7665-1779010931/content/gym-activepass.html"}
+{"type":"screen-added","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/7665-1779010931/content/gym-library-v2.html"}
+{"type":"screen-updated","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/7665-1779010931/content/gym-library-v2.html"}
+{"type":"screen-added","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/7665-1779010931/content/waiting.html"}
+{"type":"screen-updated","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/7665-1779010931/content/waiting.html"}
+{"type":"server-stopped","reason":"idle timeout"}

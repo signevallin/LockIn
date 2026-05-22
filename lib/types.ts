@@ -153,13 +153,3 @@ export interface FoodLogDay {
     mellanmal: FoodItem[];
   };
 }
-
-export interface FoodFavorite {
-  id: string;
-  name: string;
-  kcalPer100g: number;
-  proteinPer100gG: number;
-  fatPer100gG: number;
-  carbsPer100gG: number;
-  lastUsedAt: Date;
-}

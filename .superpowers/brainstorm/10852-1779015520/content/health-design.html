@@ -1,0 +1,136 @@
+<h2>Designförslag — Apple Health-integration</h2>
+<p class="subtitle">Hem-chips med målprogress + Hälsa-flik i Stats. Ser det rätt ut?</p>
+
+<div class="section">
+  <div class="label">Hemsidan — dagens progress mot mål</div>
+  <div class="mockup">
+    <div class="mockup-header">Hem</div>
+    <div class="mockup-body" style="font-family:-apple-system,sans-serif;padding:14px;background:#FCE6B7;">
+
+      <!-- Health chips row -->
+      <div style="display:flex;gap:6px;margin-bottom:10px;">
+        <div style="flex:1;background:#D8EBF9;border-radius:12px;padding:10px 8px;text-align:center;">
+          <div style="font-size:13px;font-weight:700;color:#513229;">8 432</div>
+          <div style="font-size:9px;color:#7a5c54;margin-bottom:5px;">👟 / 10 000</div>
+          <div style="background:#c8dbe8;border-radius:999px;height:4px;overflow:hidden;">
+            <div style="background:#513229;width:84%;height:100%;border-radius:999px;"></div>
+          </div>
+        </div>
+        <div style="flex:1;background:#D8EBF9;border-radius:12px;padding:10px 8px;text-align:center;">
+          <div style="font-size:13px;font-weight:700;color:#513229;">412</div>
+          <div style="font-size:9px;color:#7a5c54;margin-bottom:5px;">🔥 kcal / 600</div>
+          <div style="background:#c8dbe8;border-radius:999px;height:4px;overflow:hidden;">
+            <div style="background:#513229;width:69%;height:100%;border-radius:999px;"></div>
+          </div>
+        </div>
+        <div style="flex:1;background:#D8EBF9;border-radius:12px;padding:10px 8px;text-align:center;">
+          <div style="font-size:13px;font-weight:700;color:#513229;">38 min</div>
+          <div style="font-size:9px;color:#7a5c54;margin-bottom:5px;">💪 träning</div>
+          <div style="background:#c8dbe8;border-radius:999px;height:4px;overflow:hidden;">
+            <div style="background:#513229;width:38%;height:100%;border-radius:999px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rest of home -->
+      <div style="background:#D8EBF9;border-radius:10px;padding:10px;margin-bottom:6px;">
+        <div style="font-size:10px;font-weight:700;color:#513229;">3/5 mål klara · 9 dagar streak 🔥</div>
+      </div>
+      <div style="background:#D8EBF9;border-radius:10px;padding:8px;">
+        <div style="font-size:10px;color:#513229;font-weight:600;">Dagens uppgifter</div>
+        <div style="font-size:9px;color:#7a5c54;margin-top:2px;">✓ Morgonrutin &nbsp; ○ Träna &nbsp; ○ Läsa</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="label">Stats → Hälsa-flik</div>
+  <div class="mockup">
+    <div class="mockup-header">Stats</div>
+    <div class="mockup-body" style="font-family:-apple-system,sans-serif;padding:12px;background:#FCE6B7;">
+      <!-- Tab toggle -->
+      <div style="display:flex;gap:4px;margin-bottom:10px;background:#e8d8a0;border-radius:999px;padding:3px;">
+        <div style="flex:1;text-align:center;background:#FCE6B7;border-radius:999px;padding:4px 0;font-size:11px;color:#7a5c54;">Fokus</div>
+        <div style="flex:1;text-align:center;background:#513229;border-radius:999px;padding:4px 0;font-size:11px;color:#FCE6B7;font-weight:600;">Hälsa</div>
+      </div>
+
+      <!-- Today's numbers -->
+      <div style="background:#D8EBF9;border-radius:12px;padding:12px;margin-bottom:8px;">
+        <div style="font-size:10px;color:#7a5c54;font-weight:600;margin-bottom:8px;">IDAG</div>
+        <div style="display:flex;justify-content:space-between;gap:8px;">
+          <div style="flex:1;text-align:center;">
+            <div style="font-size:18px;font-weight:700;color:#513229;">8 432</div>
+            <div style="font-size:9px;color:#7a5c54;">👟 steg</div>
+            <div style="font-size:9px;color:#513229;font-weight:600;">84%</div>
+            <div style="background:#c8dbe8;border-radius:999px;height:3px;margin-top:3px;overflow:hidden;">
+              <div style="background:#513229;width:84%;height:100%;"></div>
+            </div>
+          </div>
+          <div style="flex:1;text-align:center;">
+            <div style="font-size:18px;font-weight:700;color:#513229;">412</div>
+            <div style="font-size:9px;color:#7a5c54;">🔥 kcal</div>
+            <div style="font-size:9px;color:#513229;font-weight:600;">69%</div>
+            <div style="background:#c8dbe8;border-radius:999px;height:3px;margin-top:3px;overflow:hidden;">
+              <div style="background:#513229;width:69%;height:100%;"></div>
+            </div>
+          </div>
+          <div style="flex:1;text-align:center;">
+            <div style="font-size:18px;font-weight:700;color:#513229;">38</div>
+            <div style="font-size:9px;color:#7a5c54;">💪 träningsmin</div>
+            <div style="font-size:9px;color:#513229;font-weight:600;">–</div>
+            <div style="background:#c8dbe8;border-radius:999px;height:3px;margin-top:3px;overflow:hidden;">
+              <div style="background:#513229;width:38%;height:100%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weekly steps chart -->
+      <div style="background:#D8EBF9;border-radius:12px;padding:12px;margin-bottom:8px;">
+        <div style="font-size:10px;color:#7a5c54;font-weight:600;margin-bottom:6px;">STEG · 7 DAGAR</div>
+        <div style="display:flex;gap:3px;align-items:flex-end;height:40px;">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <div style="flex:1;width:100%;background:#513229;border-radius:3px 3px 0 0;" style="height:65%;"></div>
+            <div style="font-size:7px;color:#7a5c54;">Mån</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <div style="width:100%;background:#513229;border-radius:3px 3px 0 0;height:28px;"></div>
+            <div style="font-size:7px;color:#7a5c54;">Tis</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <div style="width:100%;background:#513229;border-radius:3px 3px 0 0;height:18px;"></div>
+            <div style="font-size:7px;color:#7a5c54;">Ons</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <div style="width:100%;background:#513229;border-radius:3px 3px 0 0;height:35px;"></div>
+            <div style="font-size:7px;color:#7a5c54;">Tor</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <div style="width:100%;background:#513229;border-radius:3px 3px 0 0;height:24px;"></div>
+            <div style="font-size:7px;color:#7a5c54;">Fre</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <div style="width:100%;background:#513229;border-radius:3px 3px 0 0;height:30px;"></div>
+            <div style="font-size:7px;color:#7a5c54;">Lör</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <div style="width:100%;background:#f0d48e;border-radius:3px 3px 0 0;height:16px;"></div>
+            <div style="font-size:7px;color:#513229;font-weight:600;">Idag</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Goals settings -->
+      <div style="background:#D8EBF9;border-radius:12px;padding:10px;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:10px;font-weight:600;color:#513229;">Mål: 10 000 steg · 600 kcal</div>
+          <div style="font-size:9px;color:#7a5c54;">Senast synkat: idag 08:14</div>
+        </div>
+        <div style="font-size:10px;color:#7a5c54;border:1px solid #c8dbe8;border-radius:8px;padding:4px 8px;">Ändra</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:8px;">Ser det rätt ut? Berätta i chatten om du vill justera något.</p>

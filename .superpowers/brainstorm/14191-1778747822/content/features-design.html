@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LockIn – Funktionsdesign</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #F4F1E2;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #513229;
+    padding: 24px;
+  }
+  h2 { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #7a5c54; text-align: center; margin-bottom: 28px; }
+
+  .section { margin-bottom: 32px; }
+  .section-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: #7a5c54;
+    margin-bottom: 12px; padding-bottom: 6px;
+    border-bottom: 2px solid #D7D4B1;
+  }
+
+  .screens { display: flex; gap: 16px; flex-wrap: wrap; }
+  .phone {
+    width: 200px; background: #F4F1E2;
+    border-radius: 24px; padding: 14px 11px;
+    box-shadow: 0 6px 24px rgba(81,50,41,0.15), 0 0 0 2px #D7D4B1;
+    flex-shrink: 0;
+  }
+  .phone-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: #7a5c54;
+    text-align: center; margin-bottom: 10px;
+  }
+
+  /* Cards */
+  .card { background: #fff; border-radius: 10px; padding: 10px; margin-bottom: 8px; box-shadow: 0 2px 6px rgba(81,50,41,0.07); }
+  .card-dark { background: #513229; border-radius: 10px; padding: 10px; margin-bottom: 8px; }
+
+  /* Typography */
+  .label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: #9a7e78; margin-bottom: 5px; }
+  .label-light { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: rgba(244,241,226,0.6); margin-bottom: 5px; }
+  .title { font-size: 13px; font-weight: 700; color: #513229; }
+  .title-light { font-size: 13px; font-weight: 700; color: #F4F1E2; }
+  .sub { font-size: 10px; color: #9a7e78; }
+  .sub-light { font-size: 10px; color: rgba(244,241,226,0.7); }
+
+  /* Progress ring */
+  .ring-sm {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 3px solid #513229;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: #513229; flex-shrink: 0;
+  }
+
+  /* Bar */
+  .bar-bg { background: #ede9da; border-radius: 4px; height: 5px; overflow: hidden; }
+  .bar { height: 5px; border-radius: 4px; }
+
+  /* Task row */
+  .task { display: flex; align-items: center; gap: 7px; padding: 6px 0; border-bottom: 1px solid #ede9da; font-size: 10px; color: #513229; }
+  .task:last-child { border-bottom: none; }
+  .check { width: 15px; height: 15px; border-radius: 50%; border: 2px solid #D7D4B1; flex-shrink: 0; }
+  .check.done { background: #513229; border-color: #513229; }
+  .streak { font-size: 9px; color: #e07b39; margin-left: auto; }
+
+  /* Goal item */
+  .goal { background: #fff; border-radius: 10px; padding: 9px; margin-bottom: 7px; box-shadow: 0 2px 6px rgba(81,50,41,0.07); }
+  .goal-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+
+  /* Sub-goal */
+  .subgoal { display: flex; align-items: center; gap: 6px; padding: 4px 0; font-size: 9px; color: #7a5c54; border-bottom: 1px solid #ede9da; }
+  .subgoal:last-child { border-bottom: none; }
+  .subgoal-check { width: 12px; height: 12px; border-radius: 3px; border: 2px solid #D7D4B1; flex-shrink: 0; }
+  .subgoal-check.done { background: #513229; border-color: #513229; }
+
+  /* Focus timer */
+  .timer-ring {
+    width: 90px; height: 90px; border-radius: 50%;
+    border: 5px solid #513229;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 8px; background: #F4F1E2;
+    position: relative;
+  }
+  .timer-num { font-size: 20px; font-weight: 700; color: #513229; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 3px; margin-bottom: 12px; }
+  .tab { flex: 1; padding: 4px; border-radius: 5px; font-size: 8px; font-weight: 600; text-align: center; color: #9a7e78; background: #ede9da; }
+  .tab.active { background: #513229; color: #F4F1E2; }
+
+  /* Chart bars */
+  .chart { display: flex; align-items: flex-end; gap: 4px; height: 50px; margin-top: 6px; }
+  .bar-v { background: #513229; border-radius: 3px 3px 0 0; flex: 1; opacity: 0.7; }
+  .bar-v.today { opacity: 1; }
+  .chart-labels { display: flex; gap: 4px; margin-top: 3px; }
+  .chart-label { flex: 1; text-align: center; font-size: 7px; color: #9a7e78; }
+
+  /* Btn */
+  .btn { background: #513229; color: #F4F1E2; border-radius: 7px; padding: 7px; text-align: center; font-size: 10px; font-weight: 700; margin-top: 8px; }
+  .btn-outline { border: 2px solid #513229; color: #513229; border-radius: 7px; padding: 6px; text-align: center; font-size: 10px; font-weight: 700; margin-top: 6px; }
+
+  /* Stat row */
+  .stats-row { display: flex; gap: 6px; margin-bottom: 8px; }
+  .stat-box { flex: 1; background: #fff; border-radius: 8px; padding: 8px; text-align: center; box-shadow: 0 2px 4px rgba(81,50,41,0.07); }
+  .stat-num { font-size: 14px; font-weight: 700; color: #513229; }
+  .stat-lbl { font-size: 8px; color: #9a7e78; }
+
+  /* Nav */
+  .nav { display: flex; justify-content: space-around; padding-top: 10px; border-top: 1px solid #ede9da; margin-top: 8px; }
+  .nav-item { text-align: center; font-size: 7px; color: #9a7e78; }
+  .nav-item.active { color: #513229; font-weight: 700; }
+  .nav-icon { font-size: 13px; display: block; margin-bottom: 1px; }
+
+  /* Feature desc */
+  .desc-box {
+    background: #FCE6B7; border-radius: 10px;
+    padding: 12px 14px; font-size: 12px; color: #513229;
+    line-height: 1.5; margin-top: 10px;
+    max-width: 640px;
+  }
+  .desc-box ul { padding-left: 16px; margin-top: 4px; }
+  .desc-box li { margin-bottom: 3px; }
+</style>
+</head>
+<body>
+
+<h2>LockIn – Funktionsdesign</h2>
+<p class="subtitle">Hur varje skärm fungerar</p>
+
+<!-- SECTION 1: HEM -->
+<div class="section">
+  <div class="section-title">1. Hem-dashboard</div>
+  <div class="screens">
+    <div class="phone">
+      <div class="phone-label">Hem</div>
+      <div style="font-size:13px;font-weight:700;color:#513229;margin-bottom:1px;">Hej, Alex 👋</div>
+      <div style="font-size:9px;color:#9a7e78;margin-bottom:10px;">Låt's lock in idag.</div>
+
+      <div class="card-dark">
+        <div class="label-light">Dagens citat</div>
+        <div class="sub-light" style="font-size:10px;line-height:1.4;">"Discipline is choosing between what you want now and what you want most."</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Dagens progress</div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="ring-sm">78%</div>
+          <div>
+            <div style="font-size:10px;color:#513229;">3/4 Mål klara</div>
+            <div style="font-size:9px;color:#9a7e78;">7 dagar i rad 🔥 · 850 XP</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="label" style="margin-top:4px;">Dagens uppgifter</div>
+      <div class="task"><div class="check done"></div><div><div>Träna 45 min</div><div style="font-size:8px;color:#9a7e78;">Hälsa</div></div><div class="streak">🔥7</div></div>
+      <div class="task"><div class="check done"></div><div><div>Läsa 20 sidor</div><div style="font-size:8px;color:#9a7e78;">Utveckling</div></div><div class="streak">🔥7</div></div>
+      <div class="task"><div class="check"></div><div><div>Sidoprojekt 60 min</div><div style="font-size:8px;color:#9a7e78;">Karriär</div></div><div class="streak">🔥3</div></div>
+
+      <div class="btn">+ Lägg till uppgift</div>
+      <div class="nav">
+        <div class="nav-item active"><span class="nav-icon">🏠</span>Hem</div>
+        <div class="nav-item"><span class="nav-icon">🎯</span>Mål</div>
+        <div class="nav-item"><span class="nav-icon">⏱</span>Fokus</div>
+        <div class="nav-item"><span class="nav-icon">📊</span>Stats</div>
+        <div class="nav-item"><span class="nav-icon">👤</span>Profil</div>
+      </div>
+    </div>
+
+    <div class="desc-box" style="align-self:flex-start;">
+      <strong>Hem-dashboarden visar:</strong>
+      <ul>
+        <li>Motivationscitat (roteras dagligen)</li>
+        <li>Ringdiagram med dagens completion-rate</li>
+        <li>Streak-räknare och totalt XP</li>
+        <li>Dagens uppgifter — checka av direkt härifrån</li>
+        <li>Snabbknapp för att lägga till ny uppgift</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: MÅL -->
+<div class="section">
+  <div class="section-title">2. Mål med delmål</div>
+  <div class="screens">
+    <div class="phone">
+      <div class="phone-label">Mina mål</div>
+      <div class="goal">
+        <div class="goal-row">
+          <div style="font-size:10px;font-weight:700;color:#513229;">💪 Dream physique</div>
+          <div style="font-size:9px;color:#e07b39;">🔥7</div>
+        </div>
+        <div class="bar-bg"><div class="bar" style="width:75%;background:#513229;"></div></div>
+        <div style="font-size:8px;color:#9a7e78;margin-top:3px;">75% · Slutar 30 juni</div>
+        <div style="margin-top:6px;">
+          <div class="subgoal"><div class="subgoal-check done"></div>Träna 4 ggr/vecka</div>
+          <div class="subgoal"><div class="subgoal-check done"></div>Äta 150g protein/dag</div>
+          <div class="subgoal"><div class="subgoal-check"></div>Sova 8h per natt</div>
+        </div>
+      </div>
+      <div class="goal">
+        <div class="goal-row">
+          <div style="font-size:10px;font-weight:700;color:#513229;">📚 Läsa 12 böcker</div>
+          <div style="font-size:9px;color:#e07b39;">🔥12</div>
+        </div>
+        <div class="bar-bg"><div class="bar" style="width:58%;background:#D7D4B1;"></div></div>
+        <div style="font-size:8px;color:#9a7e78;margin-top:3px;">58% · 7/12 böcker</div>
+      </div>
+      <div class="goal">
+        <div class="goal-row">
+          <div style="font-size:10px;font-weight:700;color:#513229;">💰 Spara 100 000 kr</div>
+          <div style="font-size:9px;color:#e07b39;">🔥2</div>
+        </div>
+        <div class="bar-bg"><div class="bar" style="width:25%;background:#D8EBF9;"></div></div>
+        <div style="font-size:8px;color:#9a7e78;margin-top:3px;">25% · Slutar 31 dec</div>
+      </div>
+      <div class="btn-outline">+ Nytt mål</div>
+      <div class="nav">
+        <div class="nav-item"><span class="nav-icon">🏠</span>Hem</div>
+        <div class="nav-item active"><span class="nav-icon">🎯</span>Mål</div>
+        <div class="nav-item"><span class="nav-icon">⏱</span>Fokus</div>
+        <div class="nav-item"><span class="nav-icon">📊</span>Stats</div>
+        <div class="nav-item"><span class="nav-icon">👤</span>Profil</div>
+      </div>
+    </div>
+
+    <div class="desc-box" style="align-self:flex-start;">
+      <strong>Mål-skärmen:</strong>
+      <ul>
+        <li>Lista över aktiva mål med progress-bar och streak</li>
+        <li>Varje mål har delmål — checkboxar att bocka av</li>
+        <li>Deadline och kategori-emoji</li>
+        <li>Klick på mål → detaljvy med alla delmål + kopplade dagliga uppgifter</li>
+        <li>Lägg till nytt mål via formulär (titel, deadline, kategori, delmål)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: FOKUS -->
+<div class="section">
+  <div class="section-title">3. Fokustimer</div>
+  <div class="screens">
+    <div class="phone">
+      <div class="phone-label">Fokusläge</div>
+      <div class="tabs">
+        <div class="tab active">Focus</div>
+        <div class="tab">Deep Work</div>
+        <div class="tab">Study</div>
+        <div class="tab">Custom</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="timer-ring">
+          <div class="timer-num">25:00</div>
+        </div>
+        <div style="font-size:9px;color:#9a7e78;margin-bottom:10px;">Dags att låsa in. Du klarar detta.</div>
+        <div class="btn">Starta fokus</div>
+        <div style="font-size:9px;color:#9a7e78;margin-top:8px;">Idag fokuserat <strong style="color:#513229;">2h 15m</strong></div>
+      </div>
+      <div class="nav" style="margin-top:16px;">
+        <div class="nav-item"><span class="nav-icon">🏠</span>Hem</div>
+        <div class="nav-item"><span class="nav-icon">🎯</span>Mål</div>
+        <div class="nav-item active"><span class="nav-icon">⏱</span>Fokus</div>
+        <div class="nav-item"><span class="nav-icon">📊</span>Stats</div>
+        <div class="nav-item"><span class="nav-icon">👤</span>Profil</div>
+      </div>
+    </div>
+
+    <div class="desc-box" style="align-self:flex-start;">
+      <strong>Fokustimern:</strong>
+      <ul>
+        <li>4 lägen: Focus (25 min), Deep Work (90 min), Study (50 min), Custom</li>
+        <li>Nedräkning med animerad ring</li>
+        <li>Sessionen loggas automatiskt i Firestore när den slutförs</li>
+        <li>Dagens totala fokustid visas direkt</li>
+        <li>Varning om man försöker lämna sidan under aktiv session</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: PROGRESS -->
+<div class="section">
+  <div class="section-title">4. Progress & statistik</div>
+  <div class="screens">
+    <div class="phone">
+      <div class="phone-label">Min progress</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:12px;font-weight:700;color:#513229;">Min progress</div>
+        <div style="font-size:9px;background:#ede9da;padding:3px 8px;border-radius:10px;color:#513229;">Vecka ▾</div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-num">12h</div><div class="stat-lbl">Fokus tid</div></div>
+        <div class="stat-box"><div class="stat-num">28</div><div class="stat-lbl">Uppgifter</div></div>
+        <div class="stat-box"><div class="stat-num">7🔥</div><div class="stat-lbl">Streak</div></div>
+      </div>
+      <div class="card">
+        <div class="label">Veckans aktivitet</div>
+        <div class="chart">
+          <div class="bar-v" style="height:30%;"></div>
+          <div class="bar-v" style="height:55%;"></div>
+          <div class="bar-v" style="height:40%;"></div>
+          <div class="bar-v" style="height:70%;"></div>
+          <div class="bar-v" style="height:85%;"></div>
+          <div class="bar-v" style="height:60%;"></div>
+          <div class="bar-v today" style="height:100%;"></div>
+        </div>
+        <div class="chart-labels">
+          <div class="chart-label">Mån</div><div class="chart-label">Tis</div>
+          <div class="chart-label">Ons</div><div class="chart-label">Tor</div>
+          <div class="chart-label">Fre</div><div class="chart-label">Lör</div>
+          <div class="chart-label" style="color:#513229;font-weight:700;">Sön</div>
+        </div>
+      </div>
+      <div class="nav">
+        <div class="nav-item"><span class="nav-icon">🏠</span>Hem</div>
+        <div class="nav-item"><span class="nav-icon">🎯</span>Mål</div>
+        <div class="nav-item"><span class="nav-icon">⏱</span>Fokus</div>
+        <div class="nav-item active"><span class="nav-icon">📊</span>Stats</div>
+        <div class="nav-item"><span class="nav-icon">👤</span>Profil</div>
+      </div>
+    </div>
+
+    <div class="desc-box" style="align-self:flex-start;">
+      <strong>Progress-skärmen:</strong>
+      <ul>
+        <li>Byt mellan vecka / månad / totalt</li>
+        <li>Tre nyckeltal: fokustid, avklarade uppgifter, streak</li>
+        <li>Stapeldiagram för daglig aktivitet</li>
+        <li>Jämförelse med förra veckan (+/- siffror)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

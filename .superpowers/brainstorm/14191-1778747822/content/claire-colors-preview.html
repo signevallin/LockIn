@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LockIn – Claire Colors Preview</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #F4F1E2;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #513229;
+    padding: 24px;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #513229;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: #7a5c54;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  /* Palette strip */
+  .palette {
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 40px;
+    margin-bottom: 28px;
+    box-shadow: 0 2px 8px rgba(81,50,41,0.15);
+  }
+  .swatch { flex: 1; }
+
+  /* Phone frame */
+  .phone-row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .phone {
+    width: 220px;
+    background: #F4F1E2;
+    border-radius: 28px;
+    padding: 16px 12px;
+    box-shadow: 0 8px 32px rgba(81,50,41,0.18), 0 0 0 2px #D7D4B1;
+  }
+  .phone-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #7a5c54;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  /* Screen: Hem */
+  .greeting { font-size: 16px; font-weight: 700; color: #513229; margin-bottom: 2px; }
+  .greeting-sub { font-size: 11px; color: #9a7e78; margin-bottom: 12px; }
+
+  .focus-card {
+    background: #513229;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 10px;
+    color: #F4F1E2;
+  }
+  .focus-label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.6; margin-bottom: 4px; }
+  .focus-quote { font-size: 11px; line-height: 1.4; }
+
+  .progress-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(81,50,41,0.08);
+  }
+  .progress-label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: #9a7e78; margin-bottom: 8px; }
+  .progress-row { display: flex; align-items: center; gap: 10px; }
+  .ring {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 3px solid #513229;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #513229;
+    flex-shrink: 0;
+  }
+  .stats { font-size: 10px; color: #513229; }
+  .stats div { margin-bottom: 2px; }
+  .stats span { color: #9a7e78; }
+
+  .tasks-label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: #9a7e78; margin-bottom: 6px; }
+  .task {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 0;
+    border-bottom: 1px solid #ede9da;
+    font-size: 10px; color: #513229;
+  }
+  .task:last-child { border-bottom: none; }
+  .check {
+    width: 16px; height: 16px; border-radius: 50%;
+    border: 2px solid #D7D4B1;
+    flex-shrink: 0;
+    background: transparent;
+  }
+  .check.done { background: #513229; border-color: #513229; }
+  .task-cat { font-size: 9px; color: #9a7e78; }
+  .task-streak { font-size: 9px; color: #e07b39; margin-left: auto; }
+
+  .add-btn {
+    background: #513229;
+    color: #F4F1E2;
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+  /* Screen: Mål */
+  .goal-item {
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 6px rgba(81,50,41,0.07);
+  }
+  .goal-title { font-size: 11px; font-weight: 600; color: #513229; margin-bottom: 4px; }
+  .goal-bar-bg { background: #ede9da; border-radius: 4px; height: 5px; overflow: hidden; margin-bottom: 3px; }
+  .goal-bar { background: #513229; height: 5px; border-radius: 4px; }
+  .goal-meta { display: flex; justify-content: space-between; font-size: 9px; color: #9a7e78; }
+  .goal-flame { color: #e07b39; }
+
+  /* Screen: Fokus */
+  .focus-screen { text-align: center; }
+  .focus-mode-label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: #9a7e78; margin-bottom: 4px; }
+  .mode-tabs { display: flex; gap: 4px; margin-bottom: 16px; }
+  .mode-tab {
+    flex: 1; padding: 5px; border-radius: 6px;
+    font-size: 9px; font-weight: 600; text-align: center;
+    color: #9a7e78; background: #ede9da;
+  }
+  .mode-tab.active { background: #513229; color: #F4F1E2; }
+  .timer-ring {
+    width: 100px; height: 100px; border-radius: 50%;
+    border: 6px solid #513229;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 12px;
+    background: #F4F1E2;
+  }
+  .timer-text { font-size: 22px; font-weight: 700; color: #513229; }
+  .timer-sub { font-size: 9px; color: #9a7e78; margin-bottom: 12px; }
+  .start-btn {
+    background: #513229;
+    color: #F4F1E2;
+    border-radius: 8px;
+    padding: 9px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .focused-today { font-size: 10px; color: #9a7e78; }
+  .focused-today span { color: #513229; font-weight: 600; }
+
+  /* Nav */
+  .nav {
+    display: flex; justify-content: space-around;
+    padding-top: 12px;
+    border-top: 1px solid #ede9da;
+    margin-top: 10px;
+  }
+  .nav-item { text-align: center; font-size: 8px; color: #9a7e78; }
+  .nav-item.active { color: #513229; font-weight: 700; }
+  .nav-icon { font-size: 14px; display: block; margin-bottom: 2px; }
+
+  /* Colors note */
+  .color-note {
+    background: #FCE6B7;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #513229;
+    text-align: center;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .color-chips { display: flex; gap: 8px; justify-content: center; margin-top: 8px; flex-wrap: wrap; }
+  .chip {
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<h2>LockIn – med Claire McGowan-paletten</h2>
+<p class="subtitle">Varm, jordnära känsla istället för det mörka temat</p>
+
+<div class="palette">
+  <div class="swatch" style="background:#513229;"></div>
+  <div class="swatch" style="background:#F4F1E2;"></div>
+  <div class="swatch" style="background:#D8EBF9;"></div>
+  <div class="swatch" style="background:#FCE6B7;"></div>
+  <div class="swatch" style="background:#D7D4B1;"></div>
+</div>
+
+<div class="phone-row">
+
+  <!-- HEM -->
+  <div class="phone">
+    <div class="phone-label">Hem</div>
+    <div class="greeting">Hej, Alex 👋</div>
+    <div class="greeting-sub">Låt's lock in idag.</div>
+
+    <div class="focus-card">
+      <div class="focus-label">Dagens fokus</div>
+      <div class="focus-quote">"Discipline is choosing between what you want now and what you want most."</div>
+    </div>
+
+    <div class="progress-card">
+      <div class="progress-label">Dagens progress</div>
+      <div class="progress-row">
+        <div class="ring">78%</div>
+        <div class="stats">
+          <div>3/4 <span>Mål klara</span></div>
+          <div>7 <span>Dagar i rad 🔥</span></div>
+          <div>850 <span>XP</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tasks-label">Dagens uppgifter</div>
+    <div class="task"><div class="check done"></div><div><div>Träna 45 min</div><div class="task-cat">Hälsa</div></div><div class="task-streak">🔥7</div></div>
+    <div class="task"><div class="check done"></div><div><div>Läsa 20 sidor</div><div class="task-cat">Utveckling</div></div><div class="task-streak">🔥7</div></div>
+    <div class="task"><div class="check"></div><div><div>Sidoprojekt 60 min</div><div class="task-cat">Karriär</div></div><div class="task-streak">🔥3</div></div>
+
+    <div class="add-btn">+ Lägg till uppgift</div>
+
+    <div class="nav">
+      <div class="nav-item active"><span class="nav-icon">🏠</span>Hem</div>
+      <div class="nav-item"><span class="nav-icon">🎯</span>Mål</div>
+      <div class="nav-item"><span class="nav-icon">⏱</span>Fokus</div>
+      <div class="nav-item"><span class="nav-icon">📊</span>Progress</div>
+      <div class="nav-item"><span class="nav-icon">👤</span>Profil</div>
+    </div>
+  </div>
+
+  <!-- MÅL -->
+  <div class="phone">
+    <div class="phone-label">Mina mål</div>
+    <div class="greeting" style="font-size:14px;margin-bottom:10px;">Mina mål</div>
+
+    <div class="goal-item">
+      <div class="goal-title">💪 Bygg mitt dream physique</div>
+      <div class="goal-bar-bg"><div class="goal-bar" style="width:75%"></div></div>
+      <div class="goal-meta"><span>75%</span><span class="goal-flame">🔥7</span></div>
+    </div>
+    <div class="goal-item">
+      <div class="goal-title">💼 Starta mitt företag</div>
+      <div class="goal-bar-bg"><div class="goal-bar" style="width:40%;background:#D7D4B1;"></div></div>
+      <div class="goal-meta"><span>40%</span><span class="goal-flame">🔥3</span></div>
+    </div>
+    <div class="goal-item">
+      <div class="goal-title">📚 Läsa 12 böcker i år</div>
+      <div class="goal-bar-bg"><div class="goal-bar" style="width:58%;background:#D8EBF9;"></div></div>
+      <div class="goal-meta"><span>58%</span><span class="goal-flame">🔥12</span></div>
+    </div>
+    <div class="goal-item">
+      <div class="goal-title">💰 Spara 100 000 kr</div>
+      <div class="goal-bar-bg"><div class="goal-bar" style="width:25%;background:#FCE6B7;"></div></div>
+      <div class="goal-meta"><span>25%</span><span class="goal-flame">🔥2</span></div>
+    </div>
+
+    <div class="nav">
+      <div class="nav-item"><span class="nav-icon">🏠</span>Hem</div>
+      <div class="nav-item active"><span class="nav-icon">🎯</span>Mål</div>
+      <div class="nav-item"><span class="nav-icon">⏱</span>Fokus</div>
+      <div class="nav-item"><span class="nav-icon">📊</span>Progress</div>
+      <div class="nav-item"><span class="nav-icon">👤</span>Profil</div>
+    </div>
+  </div>
+
+  <!-- FOKUS -->
+  <div class="phone">
+    <div class="phone-label">Fokusläge</div>
+    <div class="mode-tabs">
+      <div class="mode-tab active">Focus</div>
+      <div class="mode-tab">Deep Work</div>
+      <div class="mode-tab">Study</div>
+    </div>
+
+    <div class="focus-screen">
+      <div class="timer-ring">
+        <div class="timer-text">25:00</div>
+      </div>
+      <div class="timer-sub">Dags att låsa in.<br>Du klarar detta.</div>
+      <div class="start-btn">Starta fokus</div>
+      <div class="focused-today">Idag fokuserat <span>2h 15m</span></div>
+    </div>
+
+    <div class="nav">
+      <div class="nav-item"><span class="nav-icon">🏠</span>Hem</div>
+      <div class="nav-item"><span class="nav-icon">🎯</span>Mål</div>
+      <div class="nav-item active"><span class="nav-icon">⏱</span>Fokus</div>
+      <div class="nav-item"><span class="nav-icon">📊</span>Progress</div>
+      <div class="nav-item"><span class="nav-icon">👤</span>Profil</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="color-note">
+  <strong>Färgerna från paletten:</strong> #513229 som primärfärg, #F4F1E2 som bakgrund — de övriga används som accentfärger på mål och kort.
+  <div class="color-chips">
+    <div class="chip" style="background:#513229;color:#F4F1E2;">Mother Earth</div>
+    <div class="chip" style="background:#F4F1E2;color:#513229;border:1px solid #D7D4B1;">Lucky Dice</div>
+    <div class="chip" style="background:#D8EBF9;color:#513229;">Something Blue</div>
+    <div class="chip" style="background:#FCE6B7;color:#513229;">The Bay</div>
+    <div class="chip" style="background:#D7D4B1;color:#513229;">Walking Vinnie</div>
+  </div>
+</div>
+
+</body>
+</html>

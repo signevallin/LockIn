@@ -1,0 +1,184 @@
+<h2>Vikt-flik — med daglig förbränning vs intag</h2>
+<p class="subtitle">Graf per dag högst upp, sedan energibalans och plan vs utfall</p>
+
+<div class="section">
+  <div class="label">Stats → Vikt-flik (final)</div>
+  <div class="mockup">
+    <div class="mockup-header">Stats</div>
+    <div class="mockup-body" style="font-family:-apple-system,sans-serif;padding:12px;background:#FCE6B7;">
+
+      <!-- Tab toggle -->
+      <div style="display:flex;gap:4px;margin-bottom:10px;background:#e8d8a0;border-radius:999px;padding:3px;">
+        <div style="flex:1;text-align:center;background:#FCE6B7;border-radius:999px;padding:4px 0;font-size:10px;color:#7a5c54;">Fokus</div>
+        <div style="flex:1;text-align:center;background:#FCE6B7;border-radius:999px;padding:4px 0;font-size:10px;color:#7a5c54;">Hälsa</div>
+        <div style="flex:1;text-align:center;background:#513229;border-radius:999px;padding:4px 0;font-size:10px;color:#FCE6B7;font-weight:600;">Vikt</div>
+      </div>
+
+      <!-- Daily burned vs consumed bar chart -->
+      <div style="background:#D8EBF9;border-radius:12px;padding:10px;margin-bottom:8px;">
+        <div style="font-size:9px;color:#7a5c54;font-weight:600;margin-bottom:6px;">FÖRBRÄNNING VS INTAG · 7 DAGAR</div>
+        <!-- Legend -->
+        <div style="display:flex;gap:10px;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:3px;">
+            <div style="width:10px;height:8px;background:#513229;border-radius:2px;"></div>
+            <div style="font-size:7px;color:#7a5c54;">Förbrukat</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:3px;">
+            <div style="width:10px;height:8px;background:#f0d48e;border-radius:2px;border:1px solid #c8aa6e;"></div>
+            <div style="font-size:7px;color:#7a5c54;">Intaget</div>
+          </div>
+        </div>
+
+        <!-- Grouped bar chart -->
+        <div style="display:flex;gap:4px;align-items:flex-end;height:52px;">
+          <!-- Mån -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;">
+            <div style="width:100%;display:flex;gap:1px;align-items:flex-end;height:44px;">
+              <div style="flex:1;background:#513229;border-radius:2px 2px 0 0;height:36px;"></div>
+              <div style="flex:1;background:#f0d48e;border-radius:2px 2px 0 0;height:28px;border:1px solid #c8aa6e;"></div>
+            </div>
+            <div style="font-size:6.5px;color:#7a5c54;">Mån</div>
+          </div>
+          <!-- Tis -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;">
+            <div style="width:100%;display:flex;gap:1px;align-items:flex-end;height:44px;">
+              <div style="flex:1;background:#513229;border-radius:2px 2px 0 0;height:40px;"></div>
+              <div style="flex:1;background:#f0d48e;border-radius:2px 2px 0 0;height:34px;border:1px solid #c8aa6e;"></div>
+            </div>
+            <div style="font-size:6.5px;color:#7a5c54;">Tis</div>
+          </div>
+          <!-- Ons -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;">
+            <div style="width:100%;display:flex;gap:1px;align-items:flex-end;height:44px;">
+              <div style="flex:1;background:#513229;border-radius:2px 2px 0 0;height:32px;"></div>
+              <div style="flex:1;background:#f0d48e;border-radius:2px 2px 0 0;height:38px;border:1px solid #c8aa6e;"></div>
+            </div>
+            <div style="font-size:6.5px;color:#7a5c54;">Ons</div>
+          </div>
+          <!-- Tor -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;">
+            <div style="width:100%;display:flex;gap:1px;align-items:flex-end;height:44px;">
+              <div style="flex:1;background:#513229;border-radius:2px 2px 0 0;height:38px;"></div>
+              <div style="flex:1;background:#f0d48e;border-radius:2px 2px 0 0;height:30px;border:1px solid #c8aa6e;"></div>
+            </div>
+            <div style="font-size:6.5px;color:#7a5c54;">Tor</div>
+          </div>
+          <!-- Fre -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;">
+            <div style="width:100%;display:flex;gap:1px;align-items:flex-end;height:44px;">
+              <div style="flex:1;background:#513229;border-radius:2px 2px 0 0;height:34px;"></div>
+              <div style="flex:1;background:#f0d48e;border-radius:2px 2px 0 0;height:32px;border:1px solid #c8aa6e;"></div>
+            </div>
+            <div style="font-size:6.5px;color:#7a5c54;">Fre</div>
+          </div>
+          <!-- Lör -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;">
+            <div style="width:100%;display:flex;gap:1px;align-items:flex-end;height:44px;">
+              <div style="flex:1;background:#513229;border-radius:2px 2px 0 0;height:28px;"></div>
+              <div style="flex:1;background:#f0d48e;border-radius:2px 2px 0 0;height:40px;border:1px solid #c8aa6e;"></div>
+            </div>
+            <div style="font-size:6.5px;color:#7a5c54;">Lör</div>
+          </div>
+          <!-- Idag -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;">
+            <div style="width:100%;display:flex;gap:1px;align-items:flex-end;height:44px;">
+              <div style="flex:1;background:#513229;border-radius:2px 2px 0 0;height:42px;opacity:0.5;"></div>
+              <div style="flex:1;background:#f0d48e;border-radius:2px 2px 0 0;height:20px;border:1px solid #c8aa6e;opacity:0.5;"></div>
+            </div>
+            <div style="font-size:6.5px;color:#513229;font-weight:700;">Idag</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weekly energy balance summary -->
+      <div style="background:#D8EBF9;border-radius:12px;padding:10px;margin-bottom:8px;">
+        <div style="font-size:9px;color:#7a5c54;font-weight:600;margin-bottom:6px;">DENNA VECKA · ENERGIBALANS</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="text-align:center;">
+            <div style="font-size:13px;font-weight:700;color:#513229;">14 280</div>
+            <div style="font-size:8px;color:#7a5c54;">🔥 förbrända</div>
+          </div>
+          <div style="font-size:16px;color:#7a5c54;">−</div>
+          <div style="text-align:center;">
+            <div style="font-size:13px;font-weight:700;color:#513229;">12 880</div>
+            <div style="font-size:8px;color:#7a5c54;">🍽 intagna</div>
+          </div>
+          <div style="font-size:16px;color:#7a5c54;">=</div>
+          <div style="text-align:center;">
+            <div style="font-size:13px;font-weight:700;color:#3a7d44;">+1 400 kcal</div>
+            <div style="font-size:8px;color:#7a5c54;">underskott</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weight this week -->
+      <div style="background:#D8EBF9;border-radius:12px;padding:10px;margin-bottom:8px;">
+        <div style="font-size:9px;color:#7a5c54;font-weight:600;margin-bottom:8px;">DENNA VECKA · VIKT</div>
+        <div style="display:flex;justify-content:space-between;gap:6px;">
+          <div style="flex:1;text-align:center;">
+            <div style="font-size:15px;font-weight:700;color:#3a7d44;">−0.18 kg</div>
+            <div style="font-size:8px;color:#7a5c54;">förväntat</div>
+            <div style="font-size:7px;color:#7a5c54;">1 400 kcal ÷ 7 700</div>
+          </div>
+          <div style="width:1px;background:#c8dbe8;"></div>
+          <div style="flex:1;text-align:center;">
+            <div style="font-size:15px;font-weight:700;color:#513229;">−0.3 kg</div>
+            <div style="font-size:8px;color:#7a5c54;">utfall vs förra veckan</div>
+            <div style="font-size:7px;color:#7a5c54;">från Apple Hälsa</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan vs utfall 10 weeks -->
+      <div style="background:#D8EBF9;border-radius:12px;padding:10px;">
+        <div style="font-size:9px;color:#7a5c54;font-weight:600;margin-bottom:6px;">PLAN VS UTFALL · 10 VECKOR</div>
+        <div style="display:flex;gap:10px;margin-bottom:6px;">
+          <div style="display:flex;align-items:center;gap:3px;">
+            <div style="width:14px;height:2px;background:#513229;border-radius:1px;border-top:1px dashed #513229;"></div>
+            <div style="font-size:7px;color:#7a5c54;">Plan</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:3px;">
+            <div style="width:8px;height:8px;background:#f0d48e;border-radius:50%;border:1.5px solid #513229;"></div>
+            <div style="font-size:7px;color:#7a5c54;">Faktisk vikt</div>
+          </div>
+        </div>
+        <svg viewBox="0 0 280 80" style="width:100%;overflow:visible;">
+          <line x1="0" y1="20" x2="280" y2="20" stroke="#c8dbe8" stroke-width="0.5"/>
+          <line x1="0" y1="40" x2="280" y2="40" stroke="#c8dbe8" stroke-width="0.5"/>
+          <line x1="0" y1="60" x2="280" y2="60" stroke="#c8dbe8" stroke-width="0.5"/>
+          <text x="0" y="18" font-size="6" fill="#7a5c54">75</text>
+          <text x="0" y="38" font-size="6" fill="#7a5c54">74</text>
+          <text x="0" y="58" font-size="6" fill="#7a5c54">73</text>
+          <text x="0" y="78" font-size="6" fill="#7a5c54">72</text>
+          <!-- Plan line dashed -->
+          <polyline points="20,22 48,26 76,30 104,33 132,37 160,40 188,44 216,47 244,50 272,54"
+            fill="none" stroke="#513229" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <!-- Actual line -->
+          <polyline points="20,24 48,25 76,32 104,30 132,38 160,42 188,46 216,44"
+            fill="none" stroke="#c8aa6e" stroke-width="1.5"/>
+          <circle cx="20" cy="24" r="2.5" fill="#f0d48e" stroke="#513229" stroke-width="1"/>
+          <circle cx="48" cy="25" r="2.5" fill="#f0d48e" stroke="#513229" stroke-width="1"/>
+          <circle cx="76" cy="32" r="2.5" fill="#f0d48e" stroke="#513229" stroke-width="1"/>
+          <circle cx="104" cy="30" r="2.5" fill="#f0d48e" stroke="#513229" stroke-width="1"/>
+          <circle cx="132" cy="38" r="2.5" fill="#f0d48e" stroke="#513229" stroke-width="1"/>
+          <circle cx="160" cy="42" r="2.5" fill="#f0d48e" stroke="#513229" stroke-width="1"/>
+          <circle cx="188" cy="46" r="2.5" fill="#f0d48e" stroke="#513229" stroke-width="1"/>
+          <circle cx="216" cy="44" r="3.5" fill="#513229" stroke="#f0d48e" stroke-width="1.5"/>
+          <text x="16" y="78" font-size="6" fill="#7a5c54">v10</text>
+          <text x="44" y="78" font-size="6" fill="#7a5c54">v11</text>
+          <text x="72" y="78" font-size="6" fill="#7a5c54">v12</text>
+          <text x="100" y="78" font-size="6" fill="#7a5c54">v13</text>
+          <text x="128" y="78" font-size="6" fill="#7a5c54">v14</text>
+          <text x="156" y="78" font-size="6" fill="#7a5c54">v15</text>
+          <text x="184" y="78" font-size="6" fill="#7a5c54">v16</text>
+          <text x="210" y="78" font-size="6" fill="#7a5c54" font-weight="bold">nu</text>
+          <text x="240" y="78" font-size="6" fill="#7a5c54" opacity="0.35">v18</text>
+          <text x="268" y="78" font-size="6" fill="#7a5c54" opacity="0.35">v19</text>
+        </svg>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:8px;">Ser det här rätt ut? Skriv om du vill ändra något.</p>

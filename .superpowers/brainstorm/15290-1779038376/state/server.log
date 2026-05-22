@@ -1,0 +1,10 @@
+{"type":"server-started","port":49737,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:49737","screen_dir":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/15290-1779038376/content","state_dir":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/15290-1779038376/state"}
+{"type":"screen-added","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/15290-1779038376/content/kost-design.html"}
+{"type":"screen-updated","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/15290-1779038376/content/kost-design.html"}
+{"type":"screen-added","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/15290-1779038376/content/vikt-v2.html"}
+{"type":"screen-updated","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/15290-1779038376/content/vikt-v2.html"}
+{"type":"screen-added","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/15290-1779038376/content/vikt-v3.html"}
+{"type":"screen-updated","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/15290-1779038376/content/vikt-v3.html"}
+{"type":"screen-added","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/15290-1779038376/content/vikt-v4.html"}
+{"type":"screen-updated","file":"/Users/signevallin/Desktop/LockIn/.superpowers/brainstorm/15290-1779038376/content/vikt-v4.html"}
+{"type":"server-stopped","reason":"idle timeout"}
