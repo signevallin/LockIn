@@ -33,6 +33,9 @@ export function useWeightHistory() {
   const [weeklyWeights, setWeeklyWeights] = useState<WeeklyWeight[]>([]);
   const [latestWeight, setLatestWeight] = useState<number | null>(null);
   const [previousWeekWeight, setPreviousWeekWeight] = useState<number | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const refresh = () => setRefreshKey(k => k + 1);
 
   useEffect(() => {
     if (!user) return;
@@ -72,7 +75,7 @@ export function useWeightHistory() {
       if (sorted.length >= 1) setLatestWeight(sorted[sorted.length - 1].weightKg);
       if (sorted.length >= 2) setPreviousWeekWeight(sorted[sorted.length - 2].weightKg);
     });
-  }, [user]);
+  }, [user, refreshKey]);
 
-  return { weeklyWeights, latestWeight, previousWeekWeight };
+  return { weeklyWeights, latestWeight, previousWeekWeight, refresh };
 }

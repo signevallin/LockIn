@@ -24,7 +24,7 @@ export function ViktTab() {
   const { user } = useAuth();
   const { days: healthDays } = useHealthWeek();
   const { days: nutritionDays, totalConsumedKcal } = useWeeklyNutrition();
-  const { weeklyWeights, latestWeight, previousWeekWeight } = useWeightHistory();
+  const { weeklyWeights, latestWeight, previousWeekWeight, refresh } = useWeightHistory();
 
   const [weightInput, setWeightInput] = useState('');
   const [saving, setSaving] = useState(false);
@@ -43,6 +43,7 @@ export function ViktTab() {
       await setDoc(ref, { ...existing, weight: rounded }, { merge: true });
       setSaved(true);
       setWeightInput('');
+      refresh();
       setTimeout(() => setSaved(false), 2000);
     } finally {
       setSaving(false);
