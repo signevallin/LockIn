@@ -14,11 +14,7 @@ export function ActivityChart({ data, maxValue }: Props) {
   return (
     <div>
       <div className="relative flex items-end gap-1.5 h-24">
-        {/* Goal line */}
-        {maxValue && (
-          <div className="absolute inset-x-0 top-0 border-t border-dashed border-earth/25 pointer-events-none" />
-        )}
-        {data.map((d) => {
+{data.map((d) => {
           const pct = Math.round((d.value / max) * 100);
           return (
             <div key={d.label} className="flex-1 flex flex-col items-center justify-end h-full">
