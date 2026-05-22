@@ -12,23 +12,26 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { token, steps, totalCalories, workoutMinutes, date, weight: rawWeight } = body as {
+  const { token, steps, totalCalories, workoutMinutes, date, weight: rawWeight, weightTenths } = body as {
     token?: string;
     steps?: number;
     totalCalories?: number;
     workoutMinutes?: number;
     date?: string;
     weight?: number | string;
+    weightTenths?: number; // integer shortcut: send kg×10, e.g. 959 = 95.9 kg
   };
 
-  // Parse weight: accept number, English "95.9", or Swedish "95,9"
+  // Parse weight: prefer weightTenths (integer, no locale issues), then number/string
   let weight: number | undefined;
-  if (typeof rawWeight === 'number') {
+  if (typeof weightTenths === 'number' && weightTenths > 0) {
+    weight = weightTenths / 10;
+  } else if (typeof rawWeight === 'number' && rawWeight > 0) {
     weight = rawWeight;
   } else if (typeof rawWeight === 'string' && rawWeight.trim().length > 0) {
     const normalized = rawWeight.trim().replace(',', '.');
     const parsed = parseFloat(normalized);
-    if (!isNaN(parsed)) weight = parsed;
+    if (!isNaN(parsed) && parsed > 0) weight = parsed;
   }
 
   if (!token || typeof token !== 'string') {
