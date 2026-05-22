@@ -54,9 +54,12 @@ Svara med:
     return NextResponse.json({ error: 'AI request failed' }, { status: 502 });
   }
 
+  // Strip markdown code fences if Claude wraps the JSON
+  const cleaned = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/, '').trim();
+
   let parsed: ParsedFood;
   try {
-    parsed = JSON.parse(text) as ParsedFood;
+    parsed = JSON.parse(cleaned) as ParsedFood;
   } catch {
     return NextResponse.json({ error: 'Failed to parse AI response' }, { status: 500 });
   }
