@@ -12,14 +12,24 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { token, steps, totalCalories, workoutMinutes, date, weight } = body as {
+  const { token, steps, totalCalories, workoutMinutes, date, weight: rawWeight } = body as {
     token?: string;
     steps?: number;
     totalCalories?: number;
     workoutMinutes?: number;
     date?: string;
-    weight?: number;
+    weight?: number | string;
   };
+
+  // Parse weight: accept number, English "95.9", or Swedish "95,9"
+  let weight: number | undefined;
+  if (typeof rawWeight === 'number') {
+    weight = rawWeight;
+  } else if (typeof rawWeight === 'string' && rawWeight.trim().length > 0) {
+    const normalized = rawWeight.trim().replace(',', '.');
+    const parsed = parseFloat(normalized);
+    if (!isNaN(parsed)) weight = parsed;
+  }
 
   if (!token || typeof token !== 'string') {
     return NextResponse.json({ error: 'Missing token' }, { status: 400 });
