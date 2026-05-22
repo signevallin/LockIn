@@ -43,7 +43,7 @@ export function useWeightHistory() {
         getDoc(doc(db, 'users', user.uid, 'health_data', date)).then(snap => {
           if (!snap.exists()) return null;
           const data = snap.data() as Record<string, unknown>;
-          if (typeof data.weight !== 'number') return null;
+          if (typeof data.weight !== 'number' || data.weight <= 0) return null;
           return { date, weightKg: data.weight as number };
         }).catch(() => null),
       ),
