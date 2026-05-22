@@ -45,7 +45,7 @@ export function useWeightHistory() {
           const data = snap.data() as Record<string, unknown>;
           if (typeof data.weight !== 'number') return null;
           return { date, weightKg: data.weight as number };
-        }),
+        }).catch(() => null),
       ),
     ).then(results => {
       const entries = results.filter(
