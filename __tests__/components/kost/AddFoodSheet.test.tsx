@@ -115,4 +115,32 @@ describe('AddFoodSheet', () => {
       carbsG: 0,
     });
   });
+
+  it('Tillbaka-knappen återgår till inputsteg med bevarad description', async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        name: 'Pasta',
+        kcalPer100g: 131,
+        proteinPer100gG: 5,
+        fatPer100gG: 1.1,
+        carbsPer100gG: 25,
+      }),
+    });
+
+    render(<AddFoodSheet {...defaultProps} />);
+    const textarea = screen.getByPlaceholderText(/Vad åt du/);
+    fireEvent.change(textarea, { target: { value: 'pasta' } });
+    fireEvent.click(screen.getByText('Analysera'));
+
+    await waitFor(() => screen.getByText('Pasta'));
+
+    fireEvent.click(screen.getByText('Stor')); // set weight to 500
+    fireEvent.click(screen.getByText('Tillbaka'));
+
+    // Should be back on input step
+    expect(screen.getByPlaceholderText(/Vad åt du/)).toBeInTheDocument();
+    // Description preserved
+    expect(screen.getByPlaceholderText(/Vad åt du/)).toHaveValue('pasta');
+  });
 });

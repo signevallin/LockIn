@@ -157,7 +157,7 @@ export function AddFoodSheet({ open, mealLabel, onAdd, onClose }: Props) {
 
           <div className="flex gap-2 pt-1">
             <button
-              onClick={() => setParsed(null)}
+              onClick={() => { setParsed(null); setWeight('300'); setError(null); }}
               className="flex-1 py-2 text-sm text-earth-light border border-cream-dark rounded-xl"
             >
               Tillbaka
