@@ -49,7 +49,7 @@ export async function POST(req: Request) {
     workoutMinutes,
     syncedAt: FieldValue.serverTimestamp(),
   };
-  if (typeof weight === 'number' && weight > 0) payload.weight = weight;
+  if (typeof weight === 'number' && weight > 0) payload.weight = Math.round(weight * 10) / 10;
 
   await db
     .collection('users')
