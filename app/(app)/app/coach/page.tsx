@@ -9,7 +9,7 @@ import type { CoachContext } from '@/lib/types';
 
 export default function CoachPage() {
   const { user } = useAuth();
-  const { goals } = useGoals();
+  const { goals, loading: goalsLoading } = useGoals();
   const { promises } = usePromises();
   const { todayCheckIn } = useCheckIn();
 
@@ -35,7 +35,13 @@ export default function CoachPage() {
   return (
     <div className="p-4 flex flex-col h-full">
       <h1 className="text-xl font-bold text-earth pt-2 mb-4">AI-coach</h1>
-      <ChatInterface context={context} getIdToken={getIdToken} />
+      {goalsLoading ? (
+        <div className="flex-1 flex items-center justify-center">
+          <span className="text-earth-light text-sm animate-pulse">Laddar din data...</span>
+        </div>
+      ) : (
+        <ChatInterface context={context} getIdToken={getIdToken} />
+      )}
     </div>
   );
 }
