@@ -16,6 +16,7 @@ interface ParsedFood {
   proteinPer100gG: number;
   fatPer100gG: number;
   carbsPer100gG: number;
+  suggestedGrams: number;
 }
 
 const PORTIONS = [
@@ -64,6 +65,8 @@ export function AddFoodSheet({ open, mealLabel, onAdd, onClose }: Props) {
       if (!res.ok) throw new Error('API error');
       const data = (await res.json()) as ParsedFood;
       setParsed(data);
+      // Pre-fill with AI-suggested weight
+      setWeight(String(data.suggestedGrams));
     } catch {
       setError('Kunde inte tolka måltiden — försök igen');
     } finally {
@@ -95,7 +98,7 @@ export function AddFoodSheet({ open, mealLabel, onAdd, onClose }: Props) {
       {!parsed ? (
         <div className="space-y-3">
           <textarea
-            placeholder="Vad åt du? T.ex. kycklingfilé med ris och sallad"
+            placeholder="Vad åt du? T.ex. 2 knäckebröd med smör och ost"
             value={description}
             onChange={e => setDescription(e.target.value)}
             rows={3}
@@ -121,7 +124,12 @@ export function AddFoodSheet({ open, mealLabel, onAdd, onClose }: Props) {
           </p>
 
           <div>
-            <p className="text-xs text-earth-light mb-2">Hur stor portion?</p>
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-xs text-earth-light">Hur stor portion?</p>
+              <p className="text-xs text-earth-light bg-bay px-2 py-0.5 rounded-full">
+                AI-förslag: {parsed.suggestedGrams}g
+              </p>
+            </div>
             <div className="flex gap-2 mb-2">
               {PORTIONS.map(p => (
                 <button
