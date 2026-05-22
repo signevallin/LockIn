@@ -97,7 +97,7 @@ export function HealthStats() {
             <p className="text-xs uppercase tracking-widest text-earth-light mb-3">
               Steg · 7 dagar
             </p>
-            <ActivityChart data={chartData} />
+            <ActivityChart data={chartData} maxValue={goals?.dailySteps} />
           </div>
         )}
 
