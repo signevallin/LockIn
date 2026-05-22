@@ -2,11 +2,10 @@
 import { useState } from 'react';
 import { useFoodLog } from '@/lib/hooks/useFoodLog';
 import type { MealKey } from '@/lib/hooks/useFoodLog';
-import { useFoodFavorites } from '@/lib/hooks/useFoodFavorites';
 import { DailyNutritionChips } from '@/components/kost/DailyNutritionChips';
 import { MealSection } from '@/components/kost/MealSection';
 import { AddFoodSheet } from '@/components/kost/AddFoodSheet';
-import type { FoodItem, FoodFavorite } from '@/lib/types';
+import type { FoodItem } from '@/lib/types';
 
 const MEALS: { key: MealKey; label: string; emoji: string }[] = [
   { key: 'frukost', label: 'Frukost', emoji: '🌅' },
@@ -22,7 +21,6 @@ function todayDate(): string {
 export default function KostPage() {
   const today = todayDate();
   const { log, totals, addItem, removeItem } = useFoodLog(today);
-  const { favorites, saveFavorite } = useFoodFavorites();
   const [addingTo, setAddingTo] = useState<MealKey | null>(null);
 
   const activeMeal = MEALS.find(m => m.key === addingTo);
@@ -53,13 +51,9 @@ export default function KostPage() {
         <AddFoodSheet
           open={addingTo !== null}
           mealLabel={activeMeal.label}
-          favorites={favorites}
           onAdd={(item: FoodItem) => {
             if (addingTo) addItem(addingTo, item);
           }}
-          onSaveFavorite={(fav: Omit<FoodFavorite, 'id' | 'lastUsedAt'>) =>
-            saveFavorite(fav)
-          }
           onClose={() => setAddingTo(null)}
         />
       )}
