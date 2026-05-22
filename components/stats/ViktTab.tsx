@@ -26,7 +26,7 @@ export function ViktTab() {
     0,
   );
   const weeklyDeficit = totalBurnedKcal - totalConsumedKcal;
-  const expectedKgChange = weeklyDeficit / 7700;
+  const expectedKgChange = -weeklyDeficit / 7700;
   const actualKgChange =
     latestWeight !== null && previousWeekWeight !== null
       ? latestWeight - previousWeekWeight
