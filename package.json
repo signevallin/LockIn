@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "node scripts/generate-firebase-sw.js && next build",
-    "vercel-build": "node scripts/generate-firebase-sw.js && next build",
+    "vercel-build": "node scripts/generate-firebase-sw.js && next build --turbopack",
     "start": "next start",
     "lint": "eslint",
     "test": "jest",
