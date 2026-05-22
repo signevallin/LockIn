@@ -74,21 +74,22 @@ function SparkIcon({ active }: { active: boolean }) {
   );
 }
 
-function LeafForkIcon({ active }: { active: boolean }) {
+function BowlIcon({ active }: { active: boolean }) {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      {/* fork tines */}
-      <path d="M8 3v3m0 0v2m0-2c0 1.1.9 2 2 2H8m0 0a2 2 0 01-2-2V3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      {/* fork handle */}
-      <path d="M8 10v11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      {/* leaf */}
+      {/* steam wisps */}
+      <path d="M9 3c0 1-.8 1.5-.8 2.5S9 7 9 7" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity={active ? 1 : 0.6} />
+      <path d="M13 2c0 1.2-1 1.8-1 3s1 1.8 1 1.8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity={active ? 1 : 0.6} />
+      {/* bowl body */}
       <path
-        d="M14 4c3 0 6 2.5 6 6 0 3-2 5-5 5.5C14 16 13 17 13 19"
-        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
+        d="M4 11h16a8 8 0 01-8 8 8 8 0 01-8-8z"
+        stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"
         fill={active ? 'currentColor' : 'none'} fillOpacity={active ? 0.12 : 0}
       />
-      {/* leaf vein */}
-      <path d="M15 7.5c1 1 1.5 2.5 1 4" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.6" />
+      {/* rim */}
+      <path d="M3 11h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      {/* base */}
+      <path d="M8.5 19.5h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -100,7 +101,7 @@ const NAV = [
   { href: '/app/goals',    label: 'Mål',   Icon: FlagIcon    },
   { href: '/app/gym',      label: 'Gym',   Icon: BarbellIcon },
   { href: '/app/progress', label: 'Stats', Icon: SparkIcon   },
-  { href: '/app/kost',     label: 'Kost',  Icon: LeafForkIcon },
+  { href: '/app/kost',     label: 'Kost',  Icon: BowlIcon },
 ];
 
 /* ─── Component ─────────────────────────────────────────────────────── */
