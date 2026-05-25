@@ -10,9 +10,14 @@ import { GoalForm } from '@/components/goals/GoalForm';
 import { PromiseCard } from '@/components/promises/PromiseCard';
 import { PromiseForm } from '@/components/promises/PromiseForm';
 import { Button } from '@/components/ui/Button';
+import { TabSwitcher } from '@/components/ui/TabSwitcher';
 import type { Goal } from '@/lib/types';
 
 type Tab = 'goals' | 'promises';
+const TABS: { key: Tab; label: string }[] = [
+  { key: 'goals', label: '🎯 Mål' },
+  { key: 'promises', label: '🔒 Löften' },
+];
 
 export default function GoalsPage() {
   const { user } = useAuth();
@@ -59,24 +64,7 @@ export default function GoalsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-dice rounded-xl p-1">
-        <button
-          onClick={() => setTab('goals')}
-          className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-            tab === 'goals' ? 'bg-sky text-earth shadow-sm' : 'text-earth-light'
-          }`}
-        >
-          🎯 Mål
-        </button>
-        <button
-          onClick={() => setTab('promises')}
-          className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-            tab === 'promises' ? 'bg-sky text-earth shadow-sm' : 'text-earth-light'
-          }`}
-        >
-          🔒 Löften
-        </button>
-      </div>
+      <TabSwitcher tabs={TABS} active={tab} onChange={setTab} />
 
       {/* Goals tab */}
       {tab === 'goals' && (

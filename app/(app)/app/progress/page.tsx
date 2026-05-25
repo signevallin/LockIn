@@ -8,6 +8,7 @@ import { useWeightHistory } from '@/lib/hooks/useWeightHistory';
 import { HealthStats } from '@/components/health/HealthStats';
 import { HealthSetup } from '@/components/health/HealthSetup';
 import { ViktTab } from '@/components/stats/ViktTab';
+import { TabSwitcher } from '@/components/ui/TabSwitcher';
 
 type Tab = 'hälsa' | 'vikt';
 const TABS: { key: Tab; label: string }[] = [
@@ -103,21 +104,7 @@ export default function ProgressPage() {
       )}
 
       {/* Tab toggle */}
-      <div className="flex gap-2">
-        {TABS.map(tab => (
-          <button
-            key={tab.key}
-            onClick={() => setActiveTab(tab.key)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-              activeTab === tab.key
-                ? 'bg-earth text-cream'
-                : 'bg-cream-dark text-earth-light'
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
+      <TabSwitcher tabs={TABS} active={activeTab} onChange={setActiveTab} />
 
       {activeTab === 'hälsa' && (
         goals?.healthSyncToken ? <HealthStats /> : <HealthSetup />
