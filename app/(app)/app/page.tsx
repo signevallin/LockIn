@@ -5,7 +5,7 @@ import { useAuth } from '@/lib/hooks/useAuth';
 import { useTasks } from '@/lib/hooks/useTasks';
 import { useGoals } from '@/lib/hooks/useGoals';
 import { useCheckIn } from '@/lib/hooks/useCheckIn';
-import { calculateStreak } from '@/lib/utils/streak';
+import { useStreak } from '@/lib/hooks/useStreak';
 import { calculateXp } from '@/lib/utils/xp';
 import { getDailyQuote } from '@/lib/utils/quotes';
 import { ProgressSummary } from '@/components/home/ProgressSummary';
@@ -26,8 +26,7 @@ export default function HomePage() {
   const [newTask, setNewTask] = useState({ title: '', category: '', goalId: null as string | null });
   const [addingTask, setAddingTask] = useState(false);
 
-  // TODO: pass real task_completion date history for accurate streak
-  const streak = calculateStreak([]);
+  const streak = useStreak();
   const totalXp = calculateXp(completedToday.size);
   const name = user?.displayName || user?.email?.split('@')[0] || 'du';
 
