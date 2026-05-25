@@ -12,15 +12,25 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { token, steps, totalCalories, workoutMinutes, date, weight: rawWeight, weightTenths } = body as {
+  const { token, steps: rawSteps, totalCalories: rawCalories, workoutMinutes: rawMinutes, date, weight: rawWeight, weightTenths } = body as {
     token?: string;
-    steps?: number;
-    totalCalories?: number;
-    workoutMinutes?: number;
+    steps?: number | string;
+    totalCalories?: number | string;
+    workoutMinutes?: number | string;
     date?: string;
     weight?: number | string;
-    weightTenths?: number; // integer shortcut: send kg×10, e.g. 959 = 95.9 kg
+    weightTenths?: number;
   };
+
+  // Coerce numeric fields — HealthKit via Shortcuts may return strings or null
+  function toInt(v: unknown): number {
+    if (typeof v === 'number') return Math.round(v);
+    if (typeof v === 'string') { const n = parseInt(v, 10); return isNaN(n) ? 0 : n; }
+    return 0;
+  }
+  const steps = toInt(rawSteps);
+  const totalCalories = toInt(rawCalories);
+  const workoutMinutes = toInt(rawMinutes);
 
   // Parse weight: prefer weightTenths (integer, no locale issues), then number/string
   let weight: number | undefined;
@@ -36,13 +46,6 @@ export async function POST(req: Request) {
 
   if (!token || typeof token !== 'string') {
     return NextResponse.json({ error: 'Missing token' }, { status: 400 });
-  }
-  if (
-    typeof steps !== 'number' ||
-    typeof totalCalories !== 'number' ||
-    typeof workoutMinutes !== 'number'
-  ) {
-    return NextResponse.json({ error: 'Missing health metrics' }, { status: 400 });
   }
   if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     return NextResponse.json({ error: 'Invalid date' }, { status: 400 });
@@ -69,7 +72,7 @@ export async function POST(req: Request) {
     .doc(uid)
     .collection('health_data')
     .doc(date)
-    .set(payload);
+    .set(payload, { merge: true });
 
   return NextResponse.json({ ok: true });
 }
