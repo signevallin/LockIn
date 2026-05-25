@@ -42,9 +42,10 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(payload => {
-  const notification = payload.notification ?? {};
-  const title = notification.title ?? 'LockIn';
-  const body = notification.body ?? '';
+  // Messages are sent as data-only to avoid FCM auto-showing a duplicate.
+  // Read title/body from payload.data.
+  const title = (payload.data && payload.data.title) ? payload.data.title : 'LockIn';
+  const body = (payload.data && payload.data.body) ? payload.data.body : '';
   self.registration.showNotification(title, {
     body,
     icon: '/icons/icon-192.png',

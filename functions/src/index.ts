@@ -11,7 +11,9 @@ async function sendToUser(userId: string, title: string, body: string) {
   const userDoc = await db.doc(`users/${userId}`).get();
   const token = userDoc.data()?.fcmToken as string | undefined;
   if (!token) return;
-  await messaging.send({ token, notification: { title, body } });
+  // Data-only message — prevents FCM from auto-showing a notification
+  // in addition to the one shown by onBackgroundMessage in the SW.
+  await messaging.send({ token, data: { title, body } });
 }
 
 // Kl 20:00 varje dag — påminnelse om incheckning
