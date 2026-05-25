@@ -42,7 +42,7 @@ function TaskItem({ task, done, goalTitle, onToggle, onDelete, deleteLabel }: Ta
       <button
         className="w-full flex items-center gap-3 py-3 px-4 text-left"
         onTouchStart={startPress}
-        onTouchEnd={() => { cancelPress(); handleTap(); }}
+        onTouchEnd={e => { e.preventDefault(); cancelPress(); handleTap(); }}
         onTouchMove={cancelPress}
         onMouseDown={startPress}
         onMouseUp={() => { cancelPress(); handleTap(); }}
