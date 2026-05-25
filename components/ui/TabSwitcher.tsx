@@ -15,8 +15,8 @@ interface Props<T extends string> {
 export function TabSwitcher<T extends string>({ tabs, active, onChange }: Props<T>) {
   return (
     <div
-      className="flex p-1 rounded-2xl"
-      style={{ background: '#e8c97a', gap: 2 }}
+      className="flex"
+      style={{ gap: 4 }}
     >
       {tabs.map(tab => {
         const isActive = tab.key === active;
